@@ -18,13 +18,4 @@ class Funcionario extends Model
      */
     protected $guarded = [];
 
-    /**
-     * Carrega pessoa
-     * @return BelongsToMany
-     */
-    public function pessoa() : BelongsTo
-    {
-        return $this->belongsTo(Pessoa::class);
-    }
-
 }

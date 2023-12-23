@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('dados_bancarios', function (Blueprint $table) {
+        Schema::create('epis', function (Blueprint $table) {
             $table->id();
             $table->string('uid');
-            $table->foreignId('pessoa_id')->constrained()->cascadeOnDelete();
-            $table->string('nome_conta')->nullable() ;
-            $table->string('nome_banco');
-            $table->string('cod_banco');
-            $table->string('agencia');
-            $table->string('conta');
+            $table->bigInteger('epi_id');
+            $table->foreign('epi_id')->references('id')->on('cad_epis');
+            $table->bigInteger('funcionario_id');
+            $table->foreign('funcionario_id')->references('id')->on('funcionarios');
+            $table->integer('quantidade');
+            $table->date('data_entrega');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('dados_bancarios');
+        Schema::dropIfExists('epis');
     }
 };

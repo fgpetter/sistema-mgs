@@ -11,9 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tipo_usuarios', function (Blueprint $table) {
+        Schema::create('epi_tamanhos', function (Blueprint $table) {
             $table->id();
+            $table->string('uid');
+            $table->foreignId('funcionario_id');
             $table->string('descricao');
+            $table->string('tamanho');
+            $table->text('observacoes');
             $table->timestamps();
         });
     }
@@ -23,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tipo_usuarios');
+        Schema::dropIfExists('epi_tamanhos');
     }
 };

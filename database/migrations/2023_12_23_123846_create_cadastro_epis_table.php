@@ -11,20 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('post_media', function (Blueprint $table) {
+        Schema::create('cadastro_epis', function (Blueprint $table) {
             $table->id();
-            $table->text('slug_post');
-            $table->text('caminho_media')->nullable();
+            $table->string('uid');
+            $table->string('nome');
+            $table->string('tamanho');
+            $table->text('observacoes');
             $table->timestamps();
         });
     }
-
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('post_media');
+        Schema::dropIfExists('cadastro_epis');
     }
 };
