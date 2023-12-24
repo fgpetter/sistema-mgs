@@ -18,7 +18,7 @@ return new class extends Migration
       $table->enum('raca_cor', ['BRANCA', 'PRETA', 'PARDA', 'AMARELA', 'INDIGENA', 'OUTRO'])->nullable();
       $table->enum('sexo', ['MASCULINO', 'FEMININO', 'OUTRO']);
       $table->enum('est_civil', ['SOLTEIRO', 'CASADO', 'DIVORCIADO', 'SEPARADO', 'VIUVO']);
-      $table->strign('nacionalidade');
+      $table->string('nacionalidade');
       $table->char('naturalidade_uf', 2);
       $table->string('naturalidade');
       $table->date('nascimento');
@@ -32,8 +32,8 @@ return new class extends Migration
       $table->string('rg');
       $table->date('emissao_rg');
       $table->string('emissor_rg');
-      $table->strign('ctps');
-      $table->strign('ctps_serie');
+      $table->string('ctps');
+      $table->string('ctps_serie');
       $table->char('ctps_uf');
       $table->string('cnh')->nullable();
       $table->date('cnh_val')->nullable();
@@ -58,7 +58,7 @@ return new class extends Migration
       $table->string('cargo')->nullable();
       $table->string('funcao')->nullable();
       $table->string('escolaridade')->nullable();
-      $table->integer('local_trabalho')->nullable();
+      $table->unsignedBigInteger('local_trabalho')->nullable();
       $table->foreign('local_trabalho')->references('id')->on('locais_trabalho');
       $table->date('admissao');
       $table->date('demissao')->nullable();

@@ -14,10 +14,9 @@ return new class extends Migration
         Schema::create('epis', function (Blueprint $table) {
             $table->id();
             $table->string('uid');
-            $table->bigInteger('epi_id');
-            $table->foreign('epi_id')->references('id')->on('cad_epis');
-            $table->bigInteger('funcionario_id');
-            $table->foreign('funcionario_id')->references('id')->on('funcionarios');
+            $table->unsignedBigInteger('epi_id');
+            $table->foreign('epi_id')->references('id')->on('cadastro_epis');
+            $table->foreignId('funcionario_id');
             $table->integer('quantidade');
             $table->date('data_entrega');
             $table->timestamps();

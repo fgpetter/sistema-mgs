@@ -14,10 +14,8 @@ return new class extends Migration
         Schema::create('beneficios', function (Blueprint $table) {
             $table->id();
             $table->string('uid');
-            $table->bigInteger('funcionario_id');
-            $table->foreign('funcionario_id')->references('id')->on('funcionarios');
-            $table->bigInteger('beneficio_id');
-            $table->foreign('beneficio_id')->references('id')->on('cadastro_beneficios');
+            $table->foreignId('funcionario_id');
+            $table->foreignId('beneficio_id');
             $table->integer('quantidade');
             $table->date('competencia');
             $table->decimal('valor_empregado');

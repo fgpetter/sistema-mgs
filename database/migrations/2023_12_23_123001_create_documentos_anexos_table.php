@@ -14,8 +14,7 @@ return new class extends Migration
         Schema::create('documentos_anexos', function (Blueprint $table) {
             $table->id();
             $table->string('uid');
-            $table->bigInteger('funcionario_id');
-            $table->foreign('funcionario_id')->references('id')->on('funcionarios');
+            $table->foreignId('funcionario_id');
             $table->string('caminho');
             $table->text('oservacoes');
             $table->timestamps();
