@@ -1,16 +1,6 @@
 /**
  * iMasK input
  */
-if(document.querySelector("#input-cnpj")){
-  IMask( document.querySelector("#input-cnpj"), {
-    mask: '00.000.000/0000-00'
-  })
-}
-if(document.querySelector("#input-cpf")){
-  IMask(document.querySelector("#input-cpf"), {
-    mask: '000.000.000-00'
-  })
-}
 
 if(document.querySelector("#telefone")){
   IMask(document.querySelector("#telefone"), {
@@ -47,3 +37,10 @@ document.querySelectorAll('.input-cep').forEach(el => {
     mask: '00000-000'
   })
 });
+
+window.onload = function(){
+  $('#input-cnpj').mask('00.000.000/0000-00', {reverse: true});
+  $('#input-cpf').mask('000.000.000-00', {reverse: true});
+  $('.money').mask('000.000.000.000.000,00', {reverse: true});
+  $('.cep').mask('00000-000');
+};

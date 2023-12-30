@@ -7,20 +7,17 @@
   @endcomponent
   <div class="row">
 
-    <div class="col col-xxl-8">
+    <div class="col">
       <x-painel.funcionarios.insert :funcionario="$funcionario"/>
     </div>
-    @if ($funcionario->id)
-      <div class="col-4">
-        <x-painel.funcionarios.dados-bancarios :funcionario="$funcionario"/>
-      </div>
-    @endif
 
   </div>
 
 @endsection
 
 @section('script')
-<script src="{{ URL::asset('build/js/pages/imask.js') }}"></script>
+<script src="{{ URL::asset('build/js/imask.js') }}"></script>
+<script src="{{ URL::asset('build/js/jquery-3.7.1.min.js') }}"></script>
+<script src="{{ URL::asset('build/js/jquery.mask.min.js') }}"></script>
 <script src="{{ URL::asset('build/js/custom.js') }}"></script>
 @endsection
