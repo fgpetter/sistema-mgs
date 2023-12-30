@@ -3,6 +3,7 @@ https://github.com/LaravelLegends/pt-br-validator
 
 # INPUT MASK
 https://imask.js.org/guide.html
+https://igorescobar.github.io/jQuery-Mask-Plugin/docs.html
 
 # Components
 ```
