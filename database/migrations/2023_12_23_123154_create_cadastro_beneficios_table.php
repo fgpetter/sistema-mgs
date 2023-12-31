@@ -14,16 +14,17 @@ return new class extends Migration
         Schema::create('cadastro_beneficios', function (Blueprint $table) {
             $table->id();
             $table->string('uid');
-            $table->string('descricao');
-            $table->boolean('mostrar_folha');
-            $table->boolean('desconto');
-            $table->bigInteger('codigo');
-            $table->bigInteger('empresa');
-            $table->bigInteger('evento_folha');
-            $table->string('tipo_evento');
-            $table->binary('permite_lancamento');
-            $table->string('tipo_beneficio');
-            $table->text('observacoes');
+            $table->string('nome')->nullable();
+            $table->string('descricao')->nullable();
+            $table->boolean('mostrar_folha')->nullable();
+            $table->boolean('desconto')->nullable();
+            $table->string('codigo')->nullable();
+            $table->string('empresa')->nullable();
+            $table->string('evento_folha')->nullable();
+            $table->string('tipo_evento')->nullable();
+            $table->boolean('permite_lancamento')->nullable();
+            $table->string('tipo_beneficio')->nullable();
+            $table->text('observacoes')->nullable();
             $table->timestamps();
         });
     }
