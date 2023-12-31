@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('locais_trabalho', function (Blueprint $table) {
             $table->id();
             $table->string('uid');
+            $table->string('nome');
             $table->timestamps();
         });
     }
