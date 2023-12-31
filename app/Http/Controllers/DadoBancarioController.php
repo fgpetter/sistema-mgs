@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Avaliador;
+use Illuminate\Support\Arr;
 use App\Models\DadoBancario;
-use App\Models\Funcionario;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Validator;
 
 class DadoBancarioController extends Controller
 {
@@ -20,49 +18,27 @@ class DadoBancarioController extends Controller
    **/
   public function create(Request $request): RedirectResponse
   {
-    $validator = Validator::make($request->all(),[
-      'nome_banco' => ['required', 'string'],
+    $validated = $request->validate([
+      'banco' => ['required', 'string'],
       'cod_banco' => ['required', 'string'],
       'agencia' => ['required', 'string'],
       'conta' => ['required', 'string'],
-      ],[
-        'nome_banco.required' => 'Preencha o nome do banco',
-        'cod_banco.required' => 'Preencha o código do banco',
-        'agencia.required' => 'Preencha a agência',
-        'conta' => 'Preencha a conta',
-      ]
-    );
-
-    if ($validator->fails()) {
-      return redirect()->back()
-        ->with('unidade-error', 'Dados informados não são válidos')
-        ->withErrors($validator);
-    }
-
-    $conta = DadoBancario::create([
-      'uid' => config('hashing.uid'),
-      'pessoa_id' => $request->get('pessoa_id'),
-      'nome_conta' => $request->get('nome_conta'),
-      'nome_banco' => $request->get('nome_banco'),
-      'cod_banco' => $request->get('cod_banco'),
-      'agencia' => $request->get('agencia'),
-      'conta' => $request->get('conta'),
+      'funcionario_id' => ['required'],
+    ],[
+      'banco.required' => 'Preencha o nome do banco',
+      'cod_banco.required' => 'Preencha o código do banco',
+      'agencia.required' => 'Preencha a agência',
+      'conta' => 'Preencha a conta',
     ]);
+    $validated = Arr::add($validated,'uid', config('hashing.uid'));
+
+    $conta = DadoBancario::create($validated);
 
     if(!$conta){
       return redirect()->back()->with('error', 'Ocorreu um erro!');
     }
 
-    if($request->get('conta_padrao')) {
-      Funcionario::where('pessoa_id', $request->get('pessoa_id'))->first()->update(['conta_padrao' => $conta->id]);
-    }
-
-    if($request->get('conta_padrao_avaliador')) {
-      Avaliador::where('pessoa_id', $request->get('pessoa_id'))->first()->update(['conta_padrao' => $conta->id]);
-    }
-
-
-    return redirect()->back()->with('conta-success', 'Conta cadastrada com sucesso');
+    return redirect()->back()->with('funcionario-success', 'Conta cadastrada com sucesso');
   }
 
   /**
@@ -74,51 +50,26 @@ class DadoBancarioController extends Controller
    **/
   public function update(Request $request, DadoBancario $conta): RedirectResponse
   {
-    $validator = Validator::make($request->all(),[
-      'nome_banco' => ['required', 'string'],
+    $validated = $request->validate([
+      'banco' => ['required', 'string'],
       'cod_banco' => ['required', 'string'],
       'agencia' => ['required', 'string'],
       'conta' => ['required', 'string'],
       ],[
-        'nome_banco.required' => 'Preencha o nome do banco',
+        'banco.required' => 'Preencha o nome do banco',
         'cod_banco.required' => 'Preencha o código do banco',
         'agencia.required' => 'Preencha a agência',
         'conta' => 'Preencha a conta',
-      ]
-    );
+      ]);
 
-    if ($validator->fails()) {
-      return redirect()->back()
-        ->with('unidade-error', 'Dados informados não são válidos')
-        ->withErrors($validator);
-    }
+    $conta->update($validated);
 
-    $conta->update([
-      'nome_conta' => $request->get('nome_conta'),
-      'nome_banco' => $request->get('nome_banco'),
-      'cod_banco' => $request->get('cod_banco'),
-      'agencia' => $request->get('agencia'),
-      'conta' => $request->get('conta'),
-    ]);
-
-    if(!$conta){
-      return redirect()->back()->with('error', 'Ocorreu um erro!');
-    }
-
-    if($request->get('conta_padrao')) {
-      Funcionario::where('pessoa_id', $request->get('pessoa_id'))->first()->update(['conta_padrao' => $conta->id]);
-    }
-
-    if($request->get('conta_padrao_avaliador')) {
-      Avaliador::where('pessoa_id', $request->get('pessoa_id'))->first()->update(['conta_padrao' => $conta->id]);
-    }
-
-    return redirect()->back()->with('conta-success', 'Conta cadastrada com sucesso');
+    return redirect()->back()->with('funcionario-success', 'Conta atualizada com sucesso');
 
   }
 
   /**
-   * Remove unidade
+   * Remove conta
    *
    * @param DadoBancario $user
    * @return RedirectResponse
@@ -127,7 +78,7 @@ class DadoBancarioController extends Controller
   {
     $conta->delete();
 
-    return redirect()->back()->with('conta-success', 'Conta removida');
+    return redirect()->back()->with('funcionario-success', 'Conta removida');
   }
 
 }

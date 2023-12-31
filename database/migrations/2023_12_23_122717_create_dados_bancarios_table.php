@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('uid');
             $table->foreignId('funcionario_id');
             $table->string('banco');
-            $table->integer('cod_banco');
+            $table->string('cod_banco')->nullable();
             $table->string('agencia');
             $table->string('conta');
             $table->timestamps();
