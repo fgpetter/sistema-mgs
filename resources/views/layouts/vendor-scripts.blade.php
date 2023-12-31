@@ -27,4 +27,5 @@
   }
   document.addEventListener('DOMContentLoaded', loadJsLib);
 </script>
+<script src="{{ URL::asset('build/js/app.js') }}"></script>
 @yield('script')

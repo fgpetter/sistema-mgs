@@ -50,7 +50,7 @@ return new class extends Migration
       $table->string('complemento')->nullable();
       $table->string('bairro')->nullable();
       $table->string('cidade')->nullable();
-      $table->char('uf', 2);
+      $table->char('uf', 2)->nullable();
       $table->string('cep')->nullable();
       $table->string('telefone')->nullable();
       $table->string('telefone_2')->nullable();
@@ -62,11 +62,11 @@ return new class extends Migration
       $table->foreign('local_trabalho')->references('id')->on('locais_trabalho');
       $table->date('admissao')->nullable();
       $table->date('demissao')->nullable();
-      $table->string('salario')->nullable();
-      $table->string('quinquenio')->nullable();
-      $table->string('func_gratificada')->nullable();
-      $table->integer('periculosidade')->nullable();
-      $table->integer('prestador_servico')->nullable();
+      $table->double('salario', 8, 2)->nullable();
+      $table->double('quinquenio', 8, 2)->nullable();
+      $table->double('func_gratificada', 8, 2)->nullable();
+      $table->double('periculosidade', 8, 2)->nullable();
+      $table->boolean('prestador_servico')->nullable();
       $table->boolean('vale_transporte')->nullable();
       $table->boolean('contribuicao')->nullable();
       $table->string('situacao')->default('ativo');

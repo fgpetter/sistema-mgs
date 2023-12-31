@@ -1,8 +1,10 @@
 <?php
 
+use App\Models\Beneficio;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\BeneficioController;
 use App\Http\Controllers\FuncionarioController;
 use App\Http\Controllers\DadoBancarioController;
 
@@ -37,6 +39,8 @@ Route::prefix('painel')->middleware('auth')->group(function () {
     Route::post('update/{funcionario:uid}', [FuncionarioController::class, 'update'])->name('funcionario-update');
     Route::post('delete/{funcionario:uid}', [FuncionarioController::class, 'delete'])->name('funcionario-delete');
     Route::post('delete-curriculo/{funcionario:uid}', [FuncionarioController::class, 'curriculoDelete'])->name('curriculo-delete');
+
+
   });
 
   /* Dados bancários */
@@ -44,6 +48,15 @@ Route::prefix('painel')->middleware('auth')->group(function () {
     Route::post('create', [DadoBancarioController::class, 'create'])->name('conta-create');
     Route::post('update/{conta:uid}', [DadoBancarioController::class, 'update'])->name('conta-update');
     Route::post('delete/{conta:uid}', [DadoBancarioController::class, 'delete'])->name('conta-delete');
+  });
+
+  /* Beneficios */
+  Route::group(['prefix' => 'beneficio'], function () {
+    Route::get('index', [BeneficioController::class, 'index'])->name('beneficio-index');
+    Route::get('insert/{beneficio:uid?}', [BeneficioController::class, 'insert'])->name('beneficio-insert');
+    Route::post('create', [BeneficioController::class, 'create'])->name('beneficio-create');
+    Route::post('update/{beneficio:uid}', [BeneficioController::class, 'update'])->name('beneficio-update');
+    Route::post('delete/{beneficio:uid}', [BeneficioController::class, 'delete'])->name('beneficio-delete');
   });
 
 });

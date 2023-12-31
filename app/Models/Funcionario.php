@@ -18,4 +18,12 @@ class Funcionario extends Model
      */
     protected $guarded = [];
 
+    /**
+     * Retorna os dados bancarios do funcionário.
+     */
+    public function dadosBancarios(): HasMany
+    {
+        return $this->hasMany(DadoBancario::class);
+    }
+
 }

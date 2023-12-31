@@ -14,6 +14,12 @@
           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
       @endif
+      @if (session('funcionario-error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          {{ session('funcionario-error') }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      @endif
 
       <div class="table-responsive" style="min-height: 25vh">
         <table class="table table-responsive table-striped align-middle table-nowrap mb-0">
@@ -22,7 +28,8 @@
             <th scope="col" class="d-none d-sm-table-cell" style="width: 1%; white-space: nowrap;">ID</th>
             <th scope="col">Nome</th>
             <th scope="col">Cargo</th>
-            <th scope="col">Setor</th>
+            <th scope="col">Função</th>
+            <th scope="col">Situação</th>
             <th scope="col"></th>
           </tr>
         </thead>
@@ -34,9 +41,10 @@
                    #{{ substr($funcionario->uid, 7) }} 
                   </a>
                 </th>
-              <td>{{$funcionario->pessoa->nome_razao}}</td>
-              <td>{{ Str::ucfirst($funcionario->cargo) }}</td>
-              <td>{{ Str::ucfirst($funcionario->setor) }}</td>
+              <td>{{$funcionario->nome}}</td>
+              <td>{{ Str::title($funcionario->cargo) }}</td>
+              <td>{{ Str::title($funcionario->funcao) }}</td>
+              <td>{{ Str::upper($funcionario->situacao) }}</td>
               <td>
                 <div class="dropdown">
                   <a href="#" role="button" id="dropdownMenuLink1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -58,7 +66,7 @@
             </tr>
           @empty
             <tr>
-              <td colspan="5" class="text-center" > Não há funcionarios na base. </td>
+              <td colspan="6" class="text-center" > Não há funcionarios na base. </td>
             </tr>
           @endforelse
         </tbody>

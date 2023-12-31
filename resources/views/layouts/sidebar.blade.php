@@ -7,7 +7,7 @@
                 <img src="{{ URL::asset('build/images/favicon.png') }}" alt="" height="32">
             </span>
             <span class="logo-lg">
-                <img src="{{ URL::asset('build/images/site/LOGO_REDE_BRANCO.png') }}" alt="" height="32">
+                <img src="{{ URL::asset('build/images/logo-mgs.png') }}" alt="" height="32">
             </span>
         </a>
         <a href="index" class="logo logo-light">
@@ -15,7 +15,7 @@
                 <img src="{{ URL::asset('build/images/favicon.png') }}" alt="" height="32">
             </span>
             <span class="logo-lg">
-                <img src="{{ URL::asset('build/images/site/LOGO_REDE_BRANCO.png') }}" alt="" height="32">
+                <img src="{{ URL::asset('build/images/logo-mgs.png') }}" alt="" height="32">
             </span>
         </a>
         <button type="button" class="btn btn-sm p-0 fs-3xl header-item float-end btn-vertical-sm-hover"
@@ -104,19 +104,25 @@
 
                 {{-- Pessoas --}}
                 <li class="nav-item">
-                    <a class="nav-link menu-link collapsed {{ in_array(request()->route()->getPrefix(),['painel/funcionario', 'painel/pessoa', 'painel/avaliador'])? 'active': '' }}"
+                    <a class="nav-link menu-link collapsed {{ in_array(request()->route()->getPrefix(),['painel/funcionario', 'painel/beneficio'])? 'active': '' }}"
                         href="#sidebarPessoas" data-bs-toggle="collapse" role="button"
-                        aria-expanded="{{ in_array(request()->route()->getPrefix(),['painel/funcionario', 'painel/pessoa', 'painel/avaliador'])? 'true': 'false' }}"
+                        aria-expanded="{{ in_array(request()->route()->getPrefix(),['painel/funcionario', 'painel/beneficio'])? 'true': 'false' }}"
                         aria-controls="sidebarPessoas">
-                        <i class="ph-identification-card"></i> <span>FUNCIONÁRIOS</span>
+                        <i class="ph-identification-card"></i> <span>GERENCIAMENTO</span>
                     </a>
-                    <div class="collapse menu-dropdown {{ in_array(request()->route()->getPrefix(),['painel/funcionario', 'painel/pessoa', 'painel/avaliador'])? 'show': '' }}"
+                    <div class="collapse menu-dropdown {{ in_array(request()->route()->getPrefix(),['painel/funcionario', 'painel/beneficio'])? 'show': '' }}"
                         id="sidebarPessoas">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
                                 <a href="{{ route('funcionario-index') }}"
                                     class="nav-link {{ request()->is('painel/funcionario/index') ? 'active' : '' }}"
                                     role="button" data-key="t-signin">Funcionários
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('beneficio-index') }}"
+                                    class="nav-link {{ request()->is('painel/beneficio/index') ? 'active' : '' }}"
+                                    role="button" data-key="t-signin">Benefícios
                                 </a>
                             </li>
                         </ul>
