@@ -3,14 +3,16 @@
 use App\Models\Beneficio;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\EpiController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BeneficioController;
 use App\Http\Controllers\FuncionarioController;
 use App\Http\Controllers\DadoBancarioController;
 
 Auth::routes();
-//Route::get('index/{locale}', [App\Http\Controllers\HomeController::class, 'lang']);
-Route::get('/', [App\Http\Controllers\HomeController::class, 'root'])->name('root');
+Route::get('/', function(){
+  return redirect()->route('login');
+});
 
 /* Rotas do template */
 // Route::get('{any}', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
@@ -39,8 +41,6 @@ Route::prefix('painel')->middleware('auth')->group(function () {
     Route::post('update/{funcionario:uid}', [FuncionarioController::class, 'update'])->name('funcionario-update');
     Route::post('delete/{funcionario:uid}', [FuncionarioController::class, 'delete'])->name('funcionario-delete');
     Route::post('delete-curriculo/{funcionario:uid}', [FuncionarioController::class, 'curriculoDelete'])->name('curriculo-delete');
-
-
   });
 
   /* Dados bancários */
@@ -57,6 +57,14 @@ Route::prefix('painel')->middleware('auth')->group(function () {
     Route::post('create', [BeneficioController::class, 'create'])->name('beneficio-create');
     Route::post('update/{beneficio:uid}', [BeneficioController::class, 'update'])->name('beneficio-update');
     Route::post('delete/{beneficio:uid}', [BeneficioController::class, 'delete'])->name('beneficio-delete');
+  });
+
+  /* EPIs */
+  Route::group(['prefix' => 'epi'], function () {
+    Route::get('index', [EpiController::class, 'index'])->name('epi-index');
+    Route::post('create', [EpiController::class, 'create'])->name('epi-create');
+    Route::post('update/{epi:uid}', [EpiController::class, 'update'])->name('epi-update');
+    Route::post('delete/{epi:uid}', [EpiController::class, 'delete'])->name('epi-delete');
   });
 
 });

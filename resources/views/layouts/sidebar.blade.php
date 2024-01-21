@@ -104,13 +104,13 @@
 
                 {{-- Pessoas --}}
                 <li class="nav-item">
-                    <a class="nav-link menu-link collapsed {{ in_array(request()->route()->getPrefix(),['painel/funcionario', 'painel/beneficio'])? 'active': '' }}"
+                    <a class="nav-link menu-link collapsed {{ in_array(request()->route()->getPrefix(),['painel/funcionario', 'painel/beneficio', 'painel/epi'])? 'active': '' }}"
                         href="#sidebarPessoas" data-bs-toggle="collapse" role="button"
-                        aria-expanded="{{ in_array(request()->route()->getPrefix(),['painel/funcionario', 'painel/beneficio'])? 'true': 'false' }}"
+                        aria-expanded="{{ in_array(request()->route()->getPrefix(),['painel/funcionario', 'painel/beneficio', 'painel/epi'])? 'true': 'false' }}"
                         aria-controls="sidebarPessoas">
                         <i class="ph-identification-card"></i> <span>GERENCIAMENTO</span>
                     </a>
-                    <div class="collapse menu-dropdown {{ in_array(request()->route()->getPrefix(),['painel/funcionario', 'painel/beneficio'])? 'show': '' }}"
+                    <div class="collapse menu-dropdown {{ in_array(request()->route()->getPrefix(),['painel/funcionario', 'painel/beneficio', 'painel/epi'])? 'show': '' }}"
                         id="sidebarPessoas">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
@@ -123,6 +123,12 @@
                                 <a href="{{ route('beneficio-index') }}"
                                     class="nav-link {{ request()->is('painel/beneficio/index') ? 'active' : '' }}"
                                     role="button" data-key="t-signin">Benefícios
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('epi-index') }}"
+                                    class="nav-link {{ request()->is('painel/epi/index') ? 'active' : '' }}"
+                                    role="button" data-key="t-signin">EPI's
                                 </a>
                             </li>
                         </ul>
