@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title> @yield('title') | Admin Rede Metrologica </title>
+    <title> @yield('title') | Admin MGS </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="{{ asset('build/images/favicon.png') }}">
     @include('layouts.head-css')

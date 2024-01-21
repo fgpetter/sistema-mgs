@@ -28,7 +28,7 @@
               <div class="card mb-0 border-0 shadow-none mb-0">
                 <div class="card-body p-sm-5 m-lg-4">
                   <div class="text-center">
-                    <img src="{{ asset('build\images\logo-mgs.png') }}" style="max-width: 12vw" class="card-img mb-3" alt="Rede Metrológica">
+                    <img src="{{ asset('build\images\logo-mgs.png') }}" style="max-width: 12vw" class="card-img mb-3" alt="Sistema MGS">
                     <h5 class="fs-3xl">Olá, faça seu login</h5>
                     {{-- <p class="mb-0 mt-3">Ainda não tem cadastro ? <a href="register" class="fw-semibold text-secondary text-decoration-underline"> Cadastre-se</a> </p> --}}
                   </div>
