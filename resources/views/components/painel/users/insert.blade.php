@@ -20,17 +20,6 @@
           @error('email') <div class="text-warning">{{ $message }}</div> @enderror
         </div>
         <div class="col-12">
-        @isset($user)
-          <label for="pessoa" class="form-label" style="margin-bottom: -0.5rem">Pessoa Associada</label>
-          <select class="form-control" name="pessoa" id="pessoa">
-              <option value="">Selecione uma pessoa</option>
-              <option value="Choice 1">Choice 1</option>
-              <option value="Choice 2">Choice 2</option>
-              <option value="Choice 3">Choice 3</option>
-          </select>
-        @endisset
-        </div>
-        <div class="col-12">
           <button type="submit" class="btn btn-primary px-4">Salvar</button>
         </div>
       </div>

@@ -4,7 +4,7 @@
 <head>
 
   <meta charset="utf-8" />
-  <title> Cadastre-se | Rede Metrológica RS</title>
+  <title> Cadastre-se | MGS</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -27,7 +27,7 @@
                 <div class="card mb-0 border-0 shadow-none mb-0">
                   <div class="card-body p-sm-5 m-lg-4">
                     <div class="text-center">
-                      <img src="{{ asset('build\images\site\LOGO_REDE_COLOR.png') }}" style="max-width: 12vw" class="card-img mb-3" alt="Rede Metrológica">
+                      <img src="{{ asset('build\images\site\LOGO_REDE_COLOR.png') }}" style="max-width: 12vw" class="card-img mb-3" alt="MGS">
                       <h5 class="fs-3xl">Crie seu cadastro</h5>
                       <p class="mb-0 mt-3">Já tem uma conta ? 
                         <a href="/login" class="fw-semibold text-primary text-decoration-underline"> Faça Login </a> 

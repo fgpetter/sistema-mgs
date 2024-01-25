@@ -108,7 +108,7 @@
                         href="#sidebarPessoas" data-bs-toggle="collapse" role="button"
                         aria-expanded="{{ in_array(request()->route()->getPrefix(),['painel/funcionario', 'painel/beneficio', 'painel/epi'])? 'true': 'false' }}"
                         aria-controls="sidebarPessoas">
-                        <i class="ph-identification-card"></i> <span>GERENCIAMENTO</span>
+                        <i class="ph-identification-card"></i> <span>CADASTROS</span>
                     </a>
                     <div class="collapse menu-dropdown {{ in_array(request()->route()->getPrefix(),['painel/funcionario', 'painel/beneficio', 'painel/epi'])? 'show': '' }}"
                         id="sidebarPessoas">

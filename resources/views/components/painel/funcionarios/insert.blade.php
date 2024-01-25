@@ -291,7 +291,7 @@
               <div class="col-sm-3">
                 <x-forms.input-field 
                   :value="old('titulo_eleitor_cessao') ?? $funcionario->titulo_eleitor_cessao ?? null" 
-                  type="number" name="titulo_eleitor_cessao" label="Cessão Eleitoral"
+                  type="number" name="titulo_eleitor_cessao" label="Sessão Eleitoral"
                 />
                 @error('titulo_eleitor_cessao') <div class="text-warning">{{ $message }}</div> @enderror 
               </div>
