@@ -11,7 +11,7 @@ use App\Http\Controllers\DadoBancarioController;
 
 Auth::routes();
 Route::get('/', function(){
-  return redirect()->route('login');
+  return redirect('/painel');
 });
 
 /* Rotas do template */
