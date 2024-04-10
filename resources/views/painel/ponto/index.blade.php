@@ -105,31 +105,31 @@
                   <input type="time" 
                   class="form-control form-control-sm" 
                   name="entrada_1[]" 
-                  value="{{ $ponto[$data_banco]['entrada_1'] ?? $entrada_1 }}" >
+                  value="{{ ($nome_do_dia == 'sábado' || $nome_do_dia == 'domingo') ? '' : $ponto[$data_banco]['entrada_1'] ?? $entrada_1 }}" >
                 </td>
                 <td class="px-3 @if($nome_do_dia == 'sábado' || $nome_do_dia == 'domingo') bg-warning bg-opacity-25 @endif"  >
                   <input type="time" 
                   class="form-control form-control-sm"
                   name="saida_1[]" 
-                  value="{{ $ponto[$data_banco]['saida_1'] ?? $saida_1 }}" >
+                  value="{{ ($nome_do_dia == 'sábado' || $nome_do_dia == 'domingo') ? '' : $ponto[$data_banco]['saida_1'] ?? $saida_1 }}" >
                 </td>
                 <td class="px-3 @if($nome_do_dia == 'sábado' || $nome_do_dia == 'domingo') bg-warning bg-opacity-25 @endif"  >
                   <input type="time" 
                   class="form-control form-control-sm" 
                   name="entrada_2[]" 
-                  value="{{ $ponto[$data_banco]['entrada_2'] ?? $entrada_2 }}" >
+                  value="{{ ($nome_do_dia == 'sábado' || $nome_do_dia == 'domingo') ? '' : $ponto[$data_banco]['entrada_2'] ?? $entrada_2 }}" >
                 </td>
                 <td class="px-3 @if($nome_do_dia == 'sábado' || $nome_do_dia == 'domingo') bg-warning bg-opacity-25 @endif"  >
                   <input type="time" 
                   class="form-control form-control-sm" 
                   name="saida_2[]" 
-                  value="{{ $ponto[$data_banco]['saida_2'] ?? $saida_2 }}" >
+                  value="{{ ($nome_do_dia == 'sábado' || $nome_do_dia == 'domingo') ? '' : $ponto[$data_banco]['saida_2'] ?? $saida_2 }}" >
                 </td>
                 <td class="px-3 @if($nome_do_dia == 'sábado' || $nome_do_dia == 'domingo') bg-warning bg-opacity-25 @endif"  >
-                  {{ (isset($ponto[$data_banco])) ? date('H:i', mktime(0,$ponto[$data_banco]['qtd_min_50'])) : '00:00' }}
+                  {{ (isset($ponto[$data_banco]) && $ponto[$data_banco]['qtd_min_50'] > 0) ? date('H:i', mktime(0,$ponto[$data_banco]['qtd_min_50'])) : '-' }}
                 </td>
                 <td class="px-3 @if($nome_do_dia == 'sábado' || $nome_do_dia == 'domingo') bg-warning bg-opacity-25 @endif"  >
-                  {{ (isset($ponto[$data_banco])) ? date('H:i', mktime(0,$ponto[$data_banco]['qtd_min_100'])) : '00:00'}}
+                  {{ (isset($ponto[$data_banco]) && $ponto[$data_banco]['qtd_min_50'] > 0) ? date('H:i', mktime(0,$ponto[$data_banco]['qtd_min_100'])) : '-'}}
                 </td>
                 <td class="px-3 @if($nome_do_dia == 'sábado' || $nome_do_dia == 'domingo') bg-warning bg-opacity-25 @endif"  >
                   <select class="form-select form-select-sm" aria-label=".form-select-sm example" style="min-width: 120px" name="anotacao[]">
