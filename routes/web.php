@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Beneficio;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EpiController;
@@ -8,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\BeneficioController;
 use App\Http\Controllers\FuncionarioController;
 use App\Http\Controllers\DadoBancarioController;
+use App\Http\Controllers\LancamentoPontoController;
 
 Auth::routes();
 Route::get('/', function(){
@@ -66,5 +66,13 @@ Route::prefix('painel')->middleware('auth')->group(function () {
     Route::post('update/{epi:uid}', [EpiController::class, 'update'])->name('epi-update');
     Route::post('delete/{epi:uid}', [EpiController::class, 'delete'])->name('epi-delete');
   });
+
+  /* Lancamento Ponto */
+  Route::group(['prefix' => 'lancamentoPonto'], function () {
+    Route::get('ponto/{funcionario:uid?}', [LancamentoPontoController::class, 'index'])->name('lancamento-ponto-index');
+    Route::post('insert/{funcionario:uid}', [LancamentoPontoController::class, 'insert'])->name('lancamento-ponto-insert');
+    Route::post('delete', [LancamentoPontoController::class, 'destroy'])->name('lancamento-ponto-delete');
+  });
+  
 
 });

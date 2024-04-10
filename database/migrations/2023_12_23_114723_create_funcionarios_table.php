@@ -58,8 +58,7 @@ return new class extends Migration
       $table->string('cargo')->nullable();
       $table->string('funcao')->nullable();
       $table->string('escolaridade')->nullable();
-      $table->unsignedBigInteger('local_trabalho')->nullable();
-      $table->foreign('local_trabalho')->references('id')->on('locais_trabalho');
+      $table->foreignId('local_trabalho_id')->nullable();
       $table->date('admissao')->nullable();
       $table->date('demissao')->nullable();
       $table->double('salario', 8, 2)->nullable();
@@ -69,6 +68,7 @@ return new class extends Migration
       $table->boolean('prestador_servico')->nullable();
       $table->boolean('vale_transporte')->nullable();
       $table->boolean('contribuicao')->nullable();
+      $table->time('hr_entrada')->nullable();
       $table->string('situacao')->default('ativo');
       $table->text('observacoes')->nullable();
       $table->timestamps();

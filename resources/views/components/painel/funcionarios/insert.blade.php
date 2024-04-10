@@ -455,8 +455,8 @@
               </div>
       
               <div class="col-sm-4">
-                <x-forms.input-select name="local_trabalho" label="Local de trabalho">
-                  <option @selected($funcionario->est_civil == "01") value="01">Selecione</option>
+                <x-forms.input-select name="local_trabalho_id" label="Local de trabalho">
+                  <option @selected($funcionario->local_trabalho_id == "01") value="01">Selecione</option>
                 </x-forms.input-select>
                 @error('local_trabalho') <div class="text-warning">{{ $message }}</div> @enderror 
               </div>
@@ -508,7 +508,7 @@
                 />
                 @error('func_gratificada') <div class="text-warning">{{ $message }}</div> @enderror 
               </div>
-
+              
               <div class="col-sm-2">
                 <x-forms.input-select name="vale_transporte" label="Vale Transporte">
                   <option @selected($funcionario->vale_transporte == 1) value="1">SIM</option>
@@ -535,6 +535,13 @@
                     <option @selected($funcionario->situacao == "LICENCA_MATERNIDADE") value="LICENCA_MATERNIDADE">LICENÇA MATERNIDADE</option>
                 </x-forms.input-select>
                 @error('situacao') <div class="text-warning">{{ $message }}</div> @enderror 
+              </div>
+              <div class="col-sm-2">
+                <x-forms.input-field
+                  type="time"
+                  :value="old('hr_entrada') ?? $funcionario->hr_entrada ?? null" 
+                  name="hr_entrada" label="Horário de entrada" />
+
               </div>
       
               @if ($funcionario->id)

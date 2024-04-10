@@ -33,12 +33,7 @@ class FuncionarioController extends Controller
   public function create(FuncionarioRequest $request): RedirectResponse
   {
     $validated = $request->except('uid', '_token');
-    $validated = Arr::map($validated, function ($value, string $key) {
-      if(str_contains($value, ',')){
-        $value = floatval(str_replace(',','.', $value));
-      }
-      return $value;
-    });
+    
     $validated = Arr::add($validated,'uid', config('hashing.uid'));
 
     $funcionario = Funcionario::create($validated);
@@ -58,9 +53,6 @@ class FuncionarioController extends Controller
    **/
   public function insert(Funcionario $funcionario): View|RedirectResponse
   {
-    if(!LocalTrabalho::exists()){
-      return back()->with('funcionario-error', 'Você precisa ter um local de trabalho cadastrado');
-    }
     return view('painel.funcionarios.insert', ['funcionario' => $funcionario]);
   }
 

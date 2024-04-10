@@ -27,7 +27,7 @@
                 <div class="card mb-0 border-0 shadow-none mb-0">
                   <div class="card-body p-sm-5 m-lg-4">
                     <div class="text-center">
-                      <img src="{{ asset('build\images\site\LOGO_REDE_COLOR.png') }}" style="max-width: 12vw" class="card-img mb-3" alt="MGS">
+                      <img src="{{ asset('build\images\logo-mgs.png') }}" style="max-width: 12vw" class="card-img mb-3" alt="MGS">
                       <h5 class="fs-3xl">Crie seu cadastro</h5>
                       <p class="mb-0 mt-3">Já tem uma conta ? 
                         <a href="/login" class="fw-semibold text-primary text-decoration-underline"> Faça Login </a> 

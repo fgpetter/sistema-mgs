@@ -53,6 +53,7 @@
                   </a>
                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink1">
                     <li><a class="dropdown-item" href="{{route('funcionario-insert', ['funcionario' => $funcionario->uid])}}">Editar</a></li>
+                    <li><a class="dropdown-item" href="{{route('lancamento-ponto-index', ['funcionario' => $funcionario->uid])}}">Ponto</a></li>
                     <li>
                       <form method="POST" action="{{ route('funcionario-delete', $funcionario->uid) }}">
                         @csrf

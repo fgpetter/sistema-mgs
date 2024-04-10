@@ -2,8 +2,9 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Arr;
 use Illuminate\Validation\Rule;
+use Illuminate\Foundation\Http\FormRequest;
 
 class FuncionarioRequest extends FormRequest
 {
@@ -30,6 +31,10 @@ class FuncionarioRequest extends FormRequest
       'est_civil' => Rule::in(['SOLTEIRO', 'CASADO', 'DIVORCIADO', 'SEPARADO', 'VIUVO']),
       'cep' => ['nullable','string', 'max:9', 'min:9'],
       'uf' => ['nullable', 'string', 'max:2', 'min:2'],
+      'salario' => ['nullable', 'decimal:2'],
+      'periculosidade' => ['nullable', 'decimal:2'],
+      'quinquenio' => ['nullable', 'decimal:2'],
+      'func_gratificada' => ['nullable', 'decimal:2'],
     ];
   }
 
@@ -49,6 +54,21 @@ class FuncionarioRequest extends FormRequest
       'uf.min' => 'Inválido',
       'uf.max' => 'Inválido',
       'admissao.date' => 'A data não é válida',
+      'salario' => 'Inváldo',
+      'periculosidade' => 'Inváldo',
+      'quinquenio' => 'Inváldo',
+      'func_gratificada' => 'Inváldo',
+
     ];
+  }
+
+  public function prepareForValidation()
+  {
+    $this->merge([
+      'salario' => ($this->salario) ? str_replace(',','.', str_replace('.','', $this->salario)) : null,
+      'periculosidade' => ($this->periculosidade) ? str_replace(',','.', str_replace('.','', $this->periculosidade)) : null,
+      'quinquenio' => ($this->quinquenio) ? str_replace(',','.', str_replace('.','', $this->quinquenio)) : null,
+      'func_gratificada' => ($this->func_gratificada) ? str_replace(',','.', str_replace('.','', $this->func_gratificada)) : null,
+    ]);
   }
 }

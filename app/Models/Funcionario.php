@@ -26,4 +26,13 @@ class Funcionario extends Model
         return $this->hasMany(DadoBancario::class);
     }
 
+    /**
+     * Retorna o ponto do funcionário.
+     */
+    public function lancamentosPonto(): HasMany
+    {
+        return $this->hasMany(LancamentoPonto::class);
+    }
+
+
 }

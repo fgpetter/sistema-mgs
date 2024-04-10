@@ -48,56 +48,6 @@
                                     class="nav-link {{ request()->is('painel/user/index') ? 'active' : '' }}"
                                     role="button" data-key="t-signin">Listar</a>
                             </li>
-                            {{-- <li class="nav-item">
-                  <a href="auth-signup" class="nav-link" role="button" data-key="t-signup">@lang('translation.signup')</a>
-                </li>
-
-                <li class="nav-item">
-                  <a href="auth-pass-reset" class="nav-link" role="button" data-key="t-password-reset">
-                    @lang('translation.password-reset')
-                  </a>
-                </li>
-
-                <li class="nav-item">
-                  <a href="auth-pass-change" class="nav-link" role="button" data-key="t-password-create">
-                    @lang('translation.password-create')
-                  </a>
-                </li>
-
-                <li class="nav-item">
-                  <a href="auth-lockscreen" class="nav-link" role="button" data-key="t-lock-screen">
-                    @lang('translation.lock-screen')
-                  </a>
-                </li>
-
-                <li class="nav-item">
-                  <a href="auth-logout" class="nav-link" role="button" data-key="t-logout"> @lang('translation.logout') </a>
-                </li>
-                <li class="nav-item">
-                  <a href="auth-success-msg" class="nav-link" role="button" data-key="t-success-message">@lang('translation.success-message') </a>
-                </li>
-                <li class="nav-item">
-                  <a href="auth-twostep" class="nav-link" role="button" data-key="t-two-step-verification"> @lang('translation.two-step-verification') </a>
-                </li>
-                <li class="nav-item">
-                  <a href="#sidebarErrors" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarErrors" data-key="t-errors"> @lang('translation.errors')</a>
-                  <div class="collapse menu-dropdown" id="sidebarErrors">
-                    <ul class="nav nav-sm flex-column">
-                      <li class="nav-item">
-                        <a href="auth-404" class="nav-link" data-key="t-404-error">@lang('translation.404')</a>
-                      </li>
-                      <li class="nav-item">
-                        <a href="auth-500" class="nav-link" data-key="t-500"> @lang('translation.500') </a>
-                      </li>
-                      <li class="nav-item">
-                        <a href="auth-503" class="nav-link" data-key="t-503">@lang('translation.503')</a>
-                      </li>
-                      <li class="nav-item">
-                        <a href="auth-offline" class="nav-link" data-key="t-offline-page"> @lang('translation.offline-page')</a>
-                      </li>
-                    </ul>
-                  </div>
-                </li> --}}
                         </ul>
                     </div>
                 </li>
@@ -108,7 +58,7 @@
                         href="#sidebarPessoas" data-bs-toggle="collapse" role="button"
                         aria-expanded="{{ in_array(request()->route()->getPrefix(),['painel/funcionario', 'painel/beneficio', 'painel/epi'])? 'true': 'false' }}"
                         aria-controls="sidebarPessoas">
-                        <i class="ph-identification-card"></i> <span>CADASTROS</span>
+                        <i class="ph-identification-card"></i> <span>FUNCIONÁRIOS</span>
                     </a>
                     <div class="collapse menu-dropdown {{ in_array(request()->route()->getPrefix(),['painel/funcionario', 'painel/beneficio', 'painel/epi'])? 'show': '' }}"
                         id="sidebarPessoas">
@@ -135,136 +85,28 @@
                     </div>
                 </li>
 
-                {{-- <li class="menu-title"><span>@lang('translation.menu')</span></li>
-          <li class="nav-item">
-            <a class="nav-link menu-link collapsed" href="#sidebarDashboards"  role="button" aria-expanded="false" aria-controls="sidebarDashboards">
-              <i class="ph-gauge"></i> <span>@lang('translation.starter')</span>
-            </a>
-          </li>
 
-          <li class="nav-item">
-            <a class="nav-link menu-link collapsed" href="#sidebarLayouts" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarLayouts">
-              <i class="ph-layout"></i><span>@lang('translation.layouts')</span> <span class="badge badge-pill bg-danger" data-key="t-hot">Hot</span>
-            </a>
-            <div class="collapse menu-dropdown" id="sidebarLayouts">
-              <ul class="nav nav-sm flex-column">
+                {{-- Ponto --}}
                 <li class="nav-item">
-                  <a href="layouts-horizontal" target="_blank" class="nav-link" data-key="t-horizontal">@lang('translation.horizontal')</a>
-                </li>
-                <li class="nav-item">
-                  <a href="layouts-detached" target="_blank" class="nav-link" data-key="t-detached">@lang('translation.detached')</a>
-                </li>
-                <li class="nav-item">
-                  <a href="layouts-two-column" target="_blank" class="nav-link" data-key="t-two-column">@lang('translation.two-column')</a>
-                </li>
-                <li class="nav-item">
-                  <a href="layouts-vertical-hovered" target="_blank" class="nav-link" data-key="t-hovered">@lang('translation.hovered')</a>
-                </li>
-              </ul>
-            </div>
-          </li>
-
-          <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">@lang('translation.pages')</span></li>
-
-          <li class="nav-item">
-            <a class="nav-link menu-link collapsed" href="#sidebarAuth" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAuth">
-              <i class="ph-user-circle"></i> <span>@lang('translation.authentication')</span>
-            </a>
-            <div class="collapse menu-dropdown" id="sidebarAuth">
-              <ul class="nav nav-sm flex-column">
-                <li class="nav-item">
-                  <a href="auth-signin" class="nav-link" role="button" data-key="t-signin">@lang('translation.signin') </a>
-                </li>
-                <li class="nav-item">
-                  <a href="auth-signup" class="nav-link" role="button" data-key="t-signup">@lang('translation.signup')</a>
-                </li>
-
-                <li class="nav-item">
-                  <a href="auth-pass-reset" class="nav-link" role="button" data-key="t-password-reset">
-                    @lang('translation.password-reset')
-                  </a>
-                </li>
-
-                <li class="nav-item">
-                  <a href="auth-pass-change" class="nav-link" role="button" data-key="t-password-create">
-                    @lang('translation.password-create')
-                  </a>
-                </li>
-
-                <li class="nav-item">
-                  <a href="auth-lockscreen" class="nav-link" role="button" data-key="t-lock-screen">
-                    @lang('translation.lock-screen')
-                  </a>
-                </li>
-
-                <li class="nav-item">
-                  <a href="auth-logout" class="nav-link" role="button" data-key="t-logout"> @lang('translation.logout') </a>
-                </li>
-                <li class="nav-item">
-                  <a href="auth-success-msg" class="nav-link" role="button" data-key="t-success-message">@lang('translation.success-message') </a>
-                </li>
-                <li class="nav-item">
-                  <a href="auth-twostep" class="nav-link" role="button" data-key="t-two-step-verification"> @lang('translation.two-step-verification') </a>
-                </li>
-                <li class="nav-item">
-                  <a href="#sidebarErrors" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarErrors" data-key="t-errors"> @lang('translation.errors')</a>
-                  <div class="collapse menu-dropdown" id="sidebarErrors">
-                    <ul class="nav nav-sm flex-column">
-                      <li class="nav-item">
-                        <a href="auth-404" class="nav-link" data-key="t-404-error">@lang('translation.404')</a>
-                      </li>
-                      <li class="nav-item">
-                        <a href="auth-500" class="nav-link" data-key="t-500"> @lang('translation.500') </a>
-                      </li>
-                      <li class="nav-item">
-                        <a href="auth-503" class="nav-link" data-key="t-503">@lang('translation.503')</a>
-                      </li>
-                      <li class="nav-item">
-                        <a href="auth-offline" class="nav-link" data-key="t-offline-page"> @lang('translation.offline-page')</a>
-                      </li>
-                    </ul>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link menu-link" href="#sidebarMultilevel" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarMultilevel">
-              <i class="ri-share-line"></i> <span>@lang('translation.multi-level')</span>
-            </a>
-            <div class="collapse menu-dropdown" id="sidebarMultilevel">
-              <ul class="nav nav-sm flex-column">
-                <li class="nav-item">
-                  <a href="#" class="nav-link">@lang('translation.level-1.1')</a>
-                </li>
-                <li class="nav-item">
-                  <a href="#sidebarAccount" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAccount">@lang('translation.level-1.2')
-                  </a>
-                  <div class="collapse menu-dropdown" id="sidebarAccount">
-                    <ul class="nav nav-sm flex-column">
-                      <li class="nav-item">
-                        <a href="#" class="nav-link">@lang('translation.level-2.1')</a>
-                      </li>
-                      <li class="nav-item">
-                        <a href="#sidebarCrm" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarCrm">@lang('translation.level-2.2')
-                        </a>
-                        <div class="collapse menu-dropdown" id="sidebarCrm">
-                          <ul class="nav nav-sm flex-column">
+                    <a class="nav-link menu-link collapsed {{ in_array(request()->route()->getPrefix(),['painel/ponto'])? 'active': '' }}"
+                        href="#sidebarPonto" data-bs-toggle="collapse" role="button"
+                        aria-expanded="{{ in_array(request()->route()->getPrefix(),['painel/ponto'])? 'true': 'false' }}"
+                        aria-controls="sidebarPonto">
+                        <i class="ph-identification-card"></i> <span>PONTO</span>
+                    </a>
+                    <div class="collapse menu-dropdown {{ in_array(request()->route()->getPrefix(),['painel/ponto'])? 'show': '' }}"
+                        id="sidebarPonto">
+                        <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                              <a href="#" class="nav-link">@lang('translation.level-3.1')</a>
-                            </li>
-                            <li class="nav-item">
-                              <a href="#" class="nav-link">@lang('translation.level-3.2')</a>
-                            </li>
-                          </ul>
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
+                                <a href="{{-- route('ponto-index') --}}"
+                                    class="nav-link {{-- request()->is('painel/ponto/index') ? 'active' : '' --}}"
+                                    role="button" data-key="t-signin">Pontos
+                                </a>
+                            </li>                            
+                        </ul>
+                    </div>
                 </li>
-              </ul>
-            </div>
-          </li> --}}
+
 
             </ul>
         </div>
