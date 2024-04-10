@@ -133,11 +133,11 @@
                 </td>
                 <td class="px-3 @if($nome_do_dia == 'sábado' || $nome_do_dia == 'domingo') bg-warning bg-opacity-25 @endif"  >
                   <select class="form-select form-select-sm" aria-label=".form-select-sm example" style="min-width: 120px" name="anotacao[]">
-                    <option selected></option>
-                    <option value="FOLGA">FOLGA</option>
-                    <option value="ABONADO">ABONADO</option>
-                    <option value="FERIAS">FERIAS</option>
-                    <option value="FALTA">FALTA</option>
+                    <option ></option>
+                    <option @selected( isset($ponto[$data_banco]) && $ponto[$data_banco]['anotacao'] == 'FOLGA') value="FOLGA">FOLGA</option>
+                    <option @selected( isset($ponto[$data_banco]) && $ponto[$data_banco]['anotacao'] == 'ABONADO') value="ABONADO">ABONADO</option>
+                    <option @selected( isset($ponto[$data_banco]) && $ponto[$data_banco]['anotacao'] == 'FERIAS') value="FERIAS">FERIAS</option>
+                    <option @selected( isset($ponto[$data_banco]) && $ponto[$data_banco]['anotacao'] == 'FALTA') value="FALTA">FALTA</option>
                   </select>
                 </td>
               </tr>
