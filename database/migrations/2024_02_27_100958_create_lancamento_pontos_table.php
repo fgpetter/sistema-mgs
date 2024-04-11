@@ -26,7 +26,8 @@ return new class extends Migration
             $table->integer('qtd_min_50')->nullable();
             $table->integer('qtd_min_100')->nullable();
             $table->integer('qtd_min_not')->nullable();
-            $table->enum('anotacao', ['FOLGA', 'ABONADO', 'FERIAS', 'FALTA'])->nullable();
+            $table->integer('qtd_min_desc')->nullable();
+            $table->enum('anotacao', ['FOLGA', 'ABONADO', 'FERIAS', 'FALTA','FERIADO'])->nullable();
         });
     }
 

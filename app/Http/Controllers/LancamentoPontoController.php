@@ -51,16 +51,24 @@ class LancamentoPontoController extends Controller
         $data = $request->except('_token');
 
         foreach($data['data'] as $key => $date){
-             
-            if( in_array($data['anotacao'][$key], ['FOLGA','ABONADO','FERIAS'])){
-                $min_trabalhados = 480;
+            
+            $qtd_min_50 = 0;
+            $qtd_min_100 = 0;
+            $qtd_min_desc = 0;
+
+            if( in_array($data['anotacao'][$key], ['FOLGA','ABONADO','FERIAS', 'FALTA']) ){
                 $data['entrada_1'][$key] = 0;
                 $data['saida_1'][$key] = 0;
                 $data['entrada_2'][$key] = 0;
                 $data['saida_2'][$key] = 0;
+            }
+
+            if( in_array($data['anotacao'][$key], ['FOLGA','ABONADO','FERIAS'])){
+                $min_trabalhados = 480;
                 
-            } elseif ($request->anotacao == 'FALTA') {
+            } elseif ($data['anotacao'][$key] == 'FALTA') {
                 $min_trabalhados = 0;
+                $qtd_min_desc = 480;
 
             } else {
                 $entrada_1 = strtotime($data['entrada_1'][$key]);
@@ -73,23 +81,39 @@ class LancamentoPontoController extends Controller
     
                 $min_trabalhados = ($t_manha + $t_tarde)/60;
                 $min_extras = $min_trabalhados - 480; // 480 = 8H
-    
-                $qtd_min_50 = 0;
-                $qtd_min_100 = 0;
-    
-                // se o funcionário trabalhou entre 8 e 10h
-                // aplica calculo de HE 50%
-                if($min_trabalhados > 480 && $min_trabalhados <= 600 ){
-                    $qtd_min_50 = $min_extras;
-                    $qtd_min_100 = 0;
+                
+                if($data['dia_da_semana'][$key] == 0 || $data['anotacao'][$key] == 'FERIADO'){ // feriados e domingos
+
+                    $qtd_min_100 = $min_trabalhados > 0 ? $min_trabalhados : 0;
+                    
+                } elseif($data['dia_da_semana'][$key] == 6){ // sabados
+
+                    $qtd_min_50 = $min_trabalhados > 0 ? $min_trabalhados : 0;
+
+                } else{ // dias uteis
+
+                    // se o funcionario trabalhou menos de 8h
+                    if($min_trabalhados < 480 ){
+                        $qtd_min_desc = 480 - $min_trabalhados;
+                    }
+
+                    // se o funcionário trabalhou entre 8 e 10h
+                    // aplica calculo de HE 50%
+                    if($min_trabalhados > 480 && $min_trabalhados <= 600 ){
+                        $qtd_min_50 = $min_extras;
+                        $qtd_min_100 = 0;
+                    }
+        
+                    // se o funcionário trabalhou mais de 10h
+                    // aplica calculo de HE 100% descontado 2h em 50%
+                    if($min_trabalhados > 600 ){
+                        $qtd_min_50 = 120;
+                        $qtd_min_100 = $min_extras - $qtd_min_50;
+                    }
+
                 }
+
     
-                // se o funcionário trabalhou mais de 10h
-                // aplica calculo de HE 100% descontado 2h em 50%
-                if($min_trabalhados > 600 ){
-                    $qtd_min_50 = 120;
-                    $qtd_min_100 = $min_extras - $qtd_min_50;
-                }
             }
             
 
@@ -105,6 +129,7 @@ class LancamentoPontoController extends Controller
                     'min_trabalhados' => $min_trabalhados,
                     'qtd_min_50' => $qtd_min_50,
                     'qtd_min_100' => $qtd_min_100,
+                    'qtd_min_desc' => $qtd_min_desc,
                 ]
             );
         }

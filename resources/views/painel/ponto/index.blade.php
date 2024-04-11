@@ -85,9 +85,11 @@
                 if($funcionario->hr_entrada){
                   $hr = explode(':', $funcionario->hr_entrada);
                 }
-                $data = Carbon\Carbon::createFromDate($ano_atual, $mes_atual, $i)->format('d/m/Y');
-                $data_banco = Carbon\Carbon::createFromDate($ano_atual, $mes_atual, $i)->format('Y-m-d');
-                $nome_do_dia = Carbon\Carbon::createFromDate($ano_atual, $mes_atual, $i)->dayName;
+                $carbonday = Carbon\Carbon::createFromDate($ano_atual, $mes_atual, $i);
+                $data = $carbonday->format('d/m/Y');
+                $data_banco = $carbonday->format('Y-m-d');
+                $nome_do_dia = $carbonday->dayName;
+                $dia_da_semana = $carbonday->dayOfWeek;
                 $rand_min = rand(0, 15);
 
                 $entrada_1 = Carbon\Carbon::createFromtime($hr[0] ?? 8, ($hr[1] ?? 0)+$rand_min)->format('H:i');
@@ -98,49 +100,65 @@
               <tr>
                 @csrf
                 <input type="hidden" name="data[]" value="{{$data_banco}}" >
-                <td class="px-3 @if($nome_do_dia == 'sábado' || $nome_do_dia == 'domingo') bg-warning bg-opacity-25 @else bg-primary bg-opacity-10 @endif " style="width: 1%">
+                <input type="hidden" name="dia_da_semana[]" value="{{$dia_da_semana}}" >
+
+                <td class="px-3 @if($dia_da_semana == 6 || $dia_da_semana == 0) bg-warning bg-opacity-25 @else bg-primary bg-opacity-10 @endif " style="width: 1%">
                   {{$data}} <br> <small> {{ Str::ucfirst($nome_do_dia) }} </small>
                 </td scope="row">
-                <td class="px-3 @if($nome_do_dia == 'sábado' || $nome_do_dia == 'domingo') bg-warning bg-opacity-25 @endif ">
+
+                <td class="px-3 @if($dia_da_semana == 6 || $dia_da_semana == 0) bg-warning bg-opacity-25 @endif ">
                   <input type="time" 
                   class="form-control form-control-sm" 
                   name="entrada_1[]" 
-                  value="{{ ($nome_do_dia == 'sábado' || $nome_do_dia == 'domingo') ? '' : $ponto[$data_banco]['entrada_1'] ?? $entrada_1 }}" >
+                  value="{{ $ponto[$data_banco]['entrada_1'] ?? (($dia_da_semana == 6 || $dia_da_semana == 0) ? '' : $entrada_1) }}" >
                 </td>
-                <td class="px-3 @if($nome_do_dia == 'sábado' || $nome_do_dia == 'domingo') bg-warning bg-opacity-25 @endif"  >
+
+                <td class="px-3 @if($dia_da_semana == 6 || $dia_da_semana == 0) bg-warning bg-opacity-25 @endif"  >
                   <input type="time" 
                   class="form-control form-control-sm"
                   name="saida_1[]" 
-                  value="{{ ($nome_do_dia == 'sábado' || $nome_do_dia == 'domingo') ? '' : $ponto[$data_banco]['saida_1'] ?? $saida_1 }}" >
+                  value="{{ $ponto[$data_banco]['saida_1'] ?? (($dia_da_semana == 6 || $dia_da_semana == 0) ? '' :  $saida_1) }}" >
                 </td>
-                <td class="px-3 @if($nome_do_dia == 'sábado' || $nome_do_dia == 'domingo') bg-warning bg-opacity-25 @endif"  >
+
+                <td class="px-3 @if($dia_da_semana == 6 || $dia_da_semana == 0) bg-warning bg-opacity-25 @endif"  >
                   <input type="time" 
                   class="form-control form-control-sm" 
                   name="entrada_2[]" 
-                  value="{{ ($nome_do_dia == 'sábado' || $nome_do_dia == 'domingo') ? '' : $ponto[$data_banco]['entrada_2'] ?? $entrada_2 }}" >
+                  value="{{ $ponto[$data_banco]['entrada_2'] ?? (($dia_da_semana == 6 || $dia_da_semana == 0) ? '' :  $entrada_2) }}" >
                 </td>
-                <td class="px-3 @if($nome_do_dia == 'sábado' || $nome_do_dia == 'domingo') bg-warning bg-opacity-25 @endif"  >
+
+                <td class="px-3 @if($dia_da_semana == 6 || $dia_da_semana == 0) bg-warning bg-opacity-25 @endif"  >
                   <input type="time" 
                   class="form-control form-control-sm" 
                   name="saida_2[]" 
-                  value="{{ ($nome_do_dia == 'sábado' || $nome_do_dia == 'domingo') ? '' : $ponto[$data_banco]['saida_2'] ?? $saida_2 }}" >
+                  value="{{ $ponto[$data_banco]['saida_2'] ?? (($dia_da_semana == 6 || $dia_da_semana == 0) ? '' :  $saida_2) }}" >
                 </td>
-                <td class="px-3 @if($nome_do_dia == 'sábado' || $nome_do_dia == 'domingo') bg-warning bg-opacity-25 @endif"  >
+
+                <td class="px-3 @if($dia_da_semana == 6 || $dia_da_semana == 0) bg-warning bg-opacity-25 @endif"  >
                   {{ (isset($ponto[$data_banco]) && $ponto[$data_banco]['qtd_min_50'] > 0) ? date('H:i', mktime(0,$ponto[$data_banco]['qtd_min_50'])) : '-' }}
                 </td>
-                <td class="px-3 @if($nome_do_dia == 'sábado' || $nome_do_dia == 'domingo') bg-warning bg-opacity-25 @endif"  >
-                  {{ (isset($ponto[$data_banco]) && $ponto[$data_banco]['qtd_min_50'] > 0) ? date('H:i', mktime(0,$ponto[$data_banco]['qtd_min_100'])) : '-'}}
+
+                <td class="px-3 @if($dia_da_semana == 6 || $dia_da_semana == 0) bg-warning bg-opacity-25 @endif"  >
+                  {{ (isset($ponto[$data_banco]) && $ponto[$data_banco]['qtd_min_100'] > 0) ? date('H:i', mktime(0,$ponto[$data_banco]['qtd_min_100'])) : '-'}}
                 </td>
-                <td class="px-3 @if($nome_do_dia == 'sábado' || $nome_do_dia == 'domingo') bg-warning bg-opacity-25 @endif"  >
+
+                <td class="px-3 @if($dia_da_semana == 6 || $dia_da_semana == 0) bg-warning bg-opacity-25 @endif"  >
                   <select class="form-select form-select-sm" aria-label=".form-select-sm example" style="min-width: 120px" name="anotacao[]">
-                    <option ></option>
+                    <option></option>
                     <option @selected( isset($ponto[$data_banco]) && $ponto[$data_banco]['anotacao'] == 'FOLGA') value="FOLGA">FOLGA</option>
                     <option @selected( isset($ponto[$data_banco]) && $ponto[$data_banco]['anotacao'] == 'ABONADO') value="ABONADO">ABONADO</option>
                     <option @selected( isset($ponto[$data_banco]) && $ponto[$data_banco]['anotacao'] == 'FERIAS') value="FERIAS">FERIAS</option>
                     <option @selected( isset($ponto[$data_banco]) && $ponto[$data_banco]['anotacao'] == 'FALTA') value="FALTA">FALTA</option>
+                    <option 
+                      @selected( (isset($ponto[$data_banco]) && $ponto[$data_banco]['anotacao'] == 'FERIADO') ) 
+                      value="FERIADO">
+                      FERIADO
+                    </option>
                   </select>
                 </td>
+
               </tr>
+              
               @if($nome_do_dia == 'domingo') 
                 <tr>
                   <td colspan="8">
