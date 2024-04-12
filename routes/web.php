@@ -72,6 +72,7 @@ Route::prefix('painel')->middleware('auth')->group(function () {
     Route::get('ponto/{funcionario:uid?}', [LancamentoPontoController::class, 'index'])->name('lancamento-ponto-index');
     Route::post('insert/{funcionario:uid}', [LancamentoPontoController::class, 'insert'])->name('lancamento-ponto-insert');
     Route::post('delete', [LancamentoPontoController::class, 'destroy'])->name('lancamento-ponto-delete');
+    Route::post('status-ponto/{funcionario:uid}', [LancamentoPontoController::class, 'statusPonto'])->name('status-ponto');
   });
   
 

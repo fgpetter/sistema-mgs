@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('funcionario_id');
             $table->foreignId('local_trabalho_id');
+            $table->string('competencia', 7);
+            $table->enum('status', ['ABERTO', 'FECHADO'])->default('ABERTO');
             $table->date('data');
             $table->time('entrada_1')->nullable();
             $table->time('saida_1')->nullable();

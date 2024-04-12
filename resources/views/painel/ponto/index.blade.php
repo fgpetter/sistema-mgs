@@ -13,41 +13,57 @@
 @endcomponent
 
 <div class="row mx-4">
-  <div class="col-3">
+  <div class="col-4">
 
     <div class="card">
       <div class="card-body">
-        <form method="get">
-          <div class="input-group">
-            <input type="month" class="form-control" name="competencia" value="{{ request()->competencia ?? date('Y-m') }}">
-            <button class="btn btn-primary" type="submit" ><strong><i class="ri-arrow-right-line"></i></strong></button>
+        <div class="row align-items-end">
+          <div class="col-8">
+            <form method="get">
+              <div class="input-group">
+                <input type="month" class="form-control" name="competencia" value="{{ request()->competencia ?? date('Y-m') }}">
+                <button class="btn btn-primary" type="submit" ><strong><i class="ri-arrow-right-line"></i></strong></button>
+              </div>
+            </form>
           </div>
-        </form>
+          <div class="col-4">
+            <form method="post" action="{{ route('status-ponto', $funcionario->uid) }}">
+              @csrf
+              <input type="hidden" name="competencia" value="{{ request()->competencia ?? date('Y-m') }}">
+              <input type="hidden" name="status" value="{{ $ponto['status'] == 'FECHADO' ? 'ABERTO' : 'FECHADO' }}">
+              <button class="btn btn-success mt-2" type="submit" >{{ $ponto['status'] == 'FECHADO' ? 'REABRIR FOLHA' : 'FECHAR FOLHA' }}</button>
+            </form>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
-  <div class="col-3">
 
+  <div class="col">
     <div class="card py-2">
       <div class="card-body text-center fs-5">
         Total horas trabalhadas: <strong> {{ sprintf("%02d:%02d", floor($ponto['total_minutos_trabalhados']/60), $ponto['total_minutos_trabalhados']%60) }} </strong>
       </div>
     </div>
   </div>
-  <div class="col-3">
+
+  <div class="col">
     <div class="card py-2">
       <div class="card-body text-center fs-5">
         Total horas extra 50%: <strong> {{ sprintf("%02d:%02d", floor($ponto['total_qtd_min_50']/60), $ponto['total_qtd_min_50']%60) }} </strong>
       </div>
     </div>
   </div>
-  <div class="col-3">
+
+  <div class="col">
     <div class="card py-2">
       <div class="card-body text-center fs-5">
         Total horas extra 100%: <strong> {{ sprintf("%02d:%02d", floor($ponto['total_qtd_min_100']/60), $ponto['total_qtd_min_100']%60) }} </strong>
       </div>
     </div>
   </div>
+
   <div class="col-12 mt-3">
     @php
       if(request()->has('competencia')){

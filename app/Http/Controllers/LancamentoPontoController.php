@@ -39,6 +39,7 @@ class LancamentoPontoController extends Controller
         $lancamentos['total_minutos_trabalhados'] = array_sum(array_column($lancamentos, 'min_trabalhados'));
         $lancamentos['total_qtd_min_50'] = array_sum(array_column($lancamentos, 'qtd_min_50'));
         $lancamentos['total_qtd_min_100'] = array_sum(array_column($lancamentos, 'qtd_min_100'));
+        $lancamentos['status'] = $ponto->first()->status;
 
         return view('painel.ponto.index', ['ponto' => $lancamentos, 'funcionario' => $funcionario]);
     }
@@ -112,14 +113,13 @@ class LancamentoPontoController extends Controller
                     }
 
                 }
-
     
             }
-            
 
             LancamentoPonto::updateOrCreate(
                 ['data' => $date, 'funcionario_id' => $funcionario->id],
                 [
+                    'competencia' => substr($date, 0, 7),
                     'entrada_1' => $data['entrada_1'][$key],
                     'saida_1' => $data['saida_1'][$key],
                     'entrada_2' => $data['entrada_2'][$key],
@@ -138,19 +138,14 @@ class LancamentoPontoController extends Controller
         
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(LancamentoPonto $lancamentoPonto)
+    public function statusPonto(Funcionario $funcionario, Request $request)
     {
-        //
-    }
+        $competencia = $request->competencia;
+        LancamentoPonto::where('funcionario_id', $funcionario->id)->where('competencia', $competencia)->update([
+            'status' => $request->status
+        ]);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(LancamentoPonto $lancamentoPonto)
-    {
-        //
+        return back()->with('success', 'Ponto atualizado com sucesso');
     }
+    
 }
