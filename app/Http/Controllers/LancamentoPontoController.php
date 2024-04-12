@@ -39,7 +39,7 @@ class LancamentoPontoController extends Controller
         $lancamentos['total_minutos_trabalhados'] = array_sum(array_column($lancamentos, 'min_trabalhados'));
         $lancamentos['total_qtd_min_50'] = array_sum(array_column($lancamentos, 'qtd_min_50'));
         $lancamentos['total_qtd_min_100'] = array_sum(array_column($lancamentos, 'qtd_min_100'));
-        $lancamentos['status'] = $ponto->first()->status;
+        $lancamentos['status'] = $ponto->first()->status ?? null;
 
         return view('painel.ponto.index', ['ponto' => $lancamentos, 'funcionario' => $funcionario]);
     }

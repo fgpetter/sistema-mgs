@@ -5,7 +5,6 @@
 @section('content')
 @component('components.breadcrumb')
   @slot('li_1')
-    Pessoas
   @endslot
   @slot('title')
     Lançamento de ponto &nbsp; | &nbsp; {{ $funcionario->nome }}
@@ -27,12 +26,14 @@
             </form>
           </div>
           <div class="col-4">
+            @if($ponto['status'])
             <form method="post" action="{{ route('status-ponto', $funcionario->uid) }}">
               @csrf
               <input type="hidden" name="competencia" value="{{ request()->competencia ?? date('Y-m') }}">
               <input type="hidden" name="status" value="{{ $ponto['status'] == 'FECHADO' ? 'ABERTO' : 'FECHADO' }}">
               <button class="btn btn-success mt-2" type="submit" >{{ $ponto['status'] == 'FECHADO' ? 'REABRIR FOLHA' : 'FECHAR FOLHA' }}</button>
             </form>
+            @endif
           </div>
         </div>
 
