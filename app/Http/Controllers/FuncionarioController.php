@@ -4,12 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Funcionario;
 use Illuminate\Support\Arr;
-use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\File;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\FuncionarioRequest;
-use App\Models\LocalTrabalho;
 
 class FuncionarioController extends Controller
 {

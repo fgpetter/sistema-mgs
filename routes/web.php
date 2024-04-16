@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EpiController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\FolhaController;
 use App\Http\Controllers\BeneficioController;
 use App\Http\Controllers\FuncionarioController;
 use App\Http\Controllers\DadoBancarioController;
@@ -73,6 +74,14 @@ Route::prefix('painel')->middleware('auth')->group(function () {
     Route::post('insert/{funcionario:uid}', [LancamentoPontoController::class, 'insert'])->name('lancamento-ponto-insert');
     Route::post('delete', [LancamentoPontoController::class, 'destroy'])->name('lancamento-ponto-delete');
     Route::post('status-ponto/{funcionario:uid}', [LancamentoPontoController::class, 'statusPonto'])->name('status-ponto');
+  });
+
+  /* Folha de pagamento */
+  Route::group(['prefix' => 'folha'], function () {
+    Route::get('index', [FolhaController::class, 'index'])->name('folha-index');
+    Route::get('insert/{lancamento:uid?}', [FolhaController::class, 'insert'])->name('folha-insert');
+    Route::post('salva-folha', [FolhaController::class, 'salvaFolha'])->name('folha-salvar');
+
   });
   
 

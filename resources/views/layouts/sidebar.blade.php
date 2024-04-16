@@ -88,19 +88,19 @@
 
                 {{-- Ponto --}}
                 <li class="nav-item">
-                    <a class="nav-link menu-link collapsed {{ in_array(request()->route()->getPrefix(),['painel/ponto'])? 'active': '' }}"
+                    <a class="nav-link menu-link collapsed {{ in_array(request()->route()->getPrefix(),['painel/folha'])? 'active': '' }}"
                         href="#sidebarPonto" data-bs-toggle="collapse" role="button"
-                        aria-expanded="{{ in_array(request()->route()->getPrefix(),['painel/ponto'])? 'true': 'false' }}"
+                        aria-expanded="{{ in_array(request()->route()->getPrefix(),['painel/folha'])? 'true': 'false' }}"
                         aria-controls="sidebarPonto">
-                        <i class="ph-identification-card"></i> <span>PONTO</span>
+                        <i class="ph-identification-card"></i> <span>FOLHA</span>
                     </a>
-                    <div class="collapse menu-dropdown {{ in_array(request()->route()->getPrefix(),['painel/ponto'])? 'show': '' }}"
+                    <div class="collapse menu-dropdown {{ in_array(request()->route()->getPrefix(),['painel/folha'])? 'show': '' }}"
                         id="sidebarPonto">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="{{-- route('ponto-index') --}}"
-                                    class="nav-link {{-- request()->is('painel/ponto/index') ? 'active' : '' --}}"
-                                    role="button" data-key="t-signin">Pontos
+                                <a href="{{ route('folha-index') }}"
+                                    class="nav-link {{ request()->is('painel/folha/index') ? 'active' : '' }}"
+                                    role="button" data-key="t-signin">Folha de pagamento
                                 </a>
                             </li>                            
                         </ul>
