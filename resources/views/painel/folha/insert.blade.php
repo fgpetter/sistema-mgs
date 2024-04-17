@@ -20,7 +20,7 @@
 
   <div class="row">
     <div class="col">
-      <x-painel.folha.insert :lancamento="$lancamento"/>
+      <x-painel.folha.insert :lancamento="$lancamento" :funcionarios="$funcionarios"/>
     </div>
   </div>
 

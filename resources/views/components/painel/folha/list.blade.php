@@ -25,22 +25,16 @@
         <table class="table table-responsive table-striped align-middle table-nowrap mb-0">
         <thead>
           <tr>
-            <th scope="col" class="d-none d-sm-table-cell" style="width: 1%; white-space: nowrap;">ID</th>
             <th scope="col">Competencia</th>
             <th scope="col">Status</th>
             <th scope="col">Dias Úteis</th>
-            <th scope="col"></th>
+            <th scope="col" style="width: 1%; white-space: nowrap;"></th>
           </tr>
         </thead>
         <tbody>
           @forelse ($lancamentos as $lancamento)
             <tr>
-              <th scope="row" class="d-none d-sm-table-cell">
-                <a href="{{ route('folha-insert', $lancamento->uid) }}" class="fw-medium">
-                   #{{ substr($lancamento->uid, 7) }} 
-                  </a>
-                </th>
-              <td>{{ $lancamento->competencia }}</td>
+              <td>{{ ucfirst(\Carbon\Carbon::parse($lancamento->competencia)->translatedFormat('F - Y')) }} </td>
               <td>{!! ($lancamento->status == 'ABERTO') ? "<span class='badge rounded-pill bg-warning'>Aberta</span>" : "<span class='badge rounded-pill bg-success'>Fechada</span>" !!}</td>
               <td>{{ $lancamento->dias_uteis }}</td>
               <td>

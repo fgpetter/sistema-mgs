@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Funcionario;
 use Illuminate\Http\Request;
 use App\Models\LancamentoFolha;
+use App\Models\LancamentoPonto;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 
@@ -29,7 +31,16 @@ class FolhaController extends Controller
    **/
   public function insert(LancamentoFolha $lancamento): View|RedirectResponse
   {
-    return view('painel.folha.insert', ['lancamento' => $lancamento]);
+    $funcionarios = Funcionario::select('id', 'nome')
+      ->whereIn('id', function($query) use ($lancamento){
+        $query->select('funcionario_id')
+          ->from('lancamento_ponto')
+          ->where('competencia', $lancamento->competencia)
+          ->where('status', 'FECHADO')
+          ->groupBy('funcionario_id');
+      })->get();
+    
+    return view('painel.folha.insert', ['lancamento' => $lancamento, 'funcionarios' => $funcionarios]);
   }
 
   /**

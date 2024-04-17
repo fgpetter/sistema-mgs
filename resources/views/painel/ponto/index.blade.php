@@ -11,13 +11,13 @@
   @endslot
 @endcomponent
 
-<div class="row mx-4">
+<div class="row mx-4 ">
   <div class="col-4">
 
     <div class="card">
       <div class="card-body">
         <div class="row align-items-end">
-          <div class="col-8">
+          <div class="col-xxl-8">
             <form method="get">
               <div class="input-group">
                 <input type="month" class="form-control" name="competencia" value="{{ request()->competencia ?? date('Y-m') }}">
@@ -25,13 +25,13 @@
               </div>
             </form>
           </div>
-          <div class="col-4">
+          <div class="col">
             @if($ponto['status'])
             <form method="post" action="{{ route('status-ponto', $funcionario->uid) }}">
               @csrf
               <input type="hidden" name="competencia" value="{{ request()->competencia ?? date('Y-m') }}">
               <input type="hidden" name="status" value="{{ $ponto['status'] == 'FECHADO' ? 'ABERTO' : 'FECHADO' }}">
-              <button class="btn btn-success mt-2" type="submit" >{{ $ponto['status'] == 'FECHADO' ? 'REABRIR FOLHA' : 'FECHAR FOLHA' }}</button>
+              <button class="btn btn-success mt-2" type="submit" >{{ $ponto['status'] == 'FECHADO' ? 'REABRIR PONTO' : 'FECHAR PONTO' }}</button>
             </form>
             @endif
           </div>

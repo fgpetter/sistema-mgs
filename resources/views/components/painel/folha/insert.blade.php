@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row"> {{-- cadastro de folha --}}
 
   <div class="col-6">
     <div class="card">
@@ -58,6 +58,7 @@
   </div>
 
 </div>
+
 @if ($lancamento->uid)
 <div class="row">
 
@@ -74,10 +75,12 @@
           <div class="row">
     
             <div class="col">
-              <x-forms.input-select name="adiciona_ponto" label="Adicionar ponto de funcionário">
+              <x-forms.input-select name="adiciona_ponto" label="Adicionar ponto de funcionário" tooltip="Listados somente pontos fechados">
                 <option>Selecione</option>
+                @foreach ($funcionarios as $funcionario)
+                  <option value="{{ $funcionario->uid }}">{{ $funcionario->nome }}</option>                  
+                @endforeach
               </x-forms.input-select>
-              <small>&nbsp; Listados somente pontos fechados</small>
               @error('adiciona_ponto') <div class="text-warning">{{ $message }}</div> @enderror
             </div>
     
