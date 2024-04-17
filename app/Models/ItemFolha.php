@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CadastroBeneficio extends Model
+class ItemFolha extends Model
 {
     use HasFactory;
 
@@ -15,4 +15,6 @@ class CadastroBeneficio extends Model
      * @var array
      */
     protected $guarded = [];
+
+    protected $table = 'itens_folha';
 }

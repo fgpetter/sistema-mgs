@@ -2,21 +2,21 @@
     <div class="card-body">
       <div class="row">
         <div class="col-12 d-flex justify-content-end mb-3">
-          <a href="{{ route('beneficio-insert') }}" class="btn btn-sm btn-success" > 
+          <a href="{{ route('item-folha-insert') }}" class="btn btn-sm btn-success" > 
             <i class="ri-add-line align-bottom me-1"></i> Adicionar 
           </a>
         </div>
       </div>
 
-      @if (session('beneficio-success'))
+      @if (session('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
-          {{ session('beneficio-success') }}
+          {{ session('success') }}
           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
       @endif
-      @if (session('beneficio-error'))
+      @if (session('error'))
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-          {{ session('beneficio-error') }}
+          {{ session('error') }}
           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
       @endif
@@ -28,21 +28,21 @@
             <th scope="col" class="d-none d-sm-table-cell" style="width: 1%; white-space: nowrap;">ID</th>
             <th scope="col">Nome</th>
             <th scope="col">Tipo</th>
-            <th scope="col">Empresa</th>
+            <th scope="col">Descricao</th>
             <th scope="col"></th>
           </tr>
         </thead>
         <tbody>
-          @forelse ($beneficios as $beneficio)
+          @forelse ($itensFolha as $itemFolha)
             <tr>
               <th scope="row" class="d-none d-sm-table-cell">
-                <a href="{{ route('beneficio-insert', ['beneficio' => $beneficio->uid]) }}" class="fw-medium">
-                   #{{ substr($beneficio->uid, 7) }} 
+                <a href="{{ route('item-folha-insert', ['itemFolha' => $itemFolha->uid]) }}" class="fw-medium">
+                   #{{ substr($itemFolha->uid, 7) }} 
                   </a>
                 </th>
-              <td>{{ Str::title($beneficio->nome) }}</td>
-              <td>{{ Str::title($beneficio->tipo_evento) }}</td>
-              <td>{{ Str::title($beneficio->empresa) }}</td>
+              <td>{{ Str::title($itemFolha->nome) }}</td>
+              <td>{{ Str::title($itemFolha->tipo_evento) }}</td>
+              <td>{{ Str::title($itemFolha->descricao) }}</td>
               <td>
                 <div class="dropdown">
                   <a href="#" role="button" id="dropdownMenuLink1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -50,9 +50,9 @@
                       data-bs-toggle="tooltip" data-bs-placement="top" title="Detalhes e edição"></i>
                   </a>
                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink1">
-                    <li><a class="dropdown-item" href="{{route('beneficio-insert', ['beneficio' => $beneficio->uid])}}">Editar</a></li>
+                    <li><a class="dropdown-item" href="{{route('item-folha-insert', ['itemFolha' => $itemFolha->uid])}}">Editar</a></li>
                     <li>
-                      <form method="POST" action="{{ route('beneficio-delete', $beneficio->uid) }}">
+                      <form method="POST" action="{{ route('item-folha-delete', $itemFolha->uid) }}">
                         @csrf
                         <button class="dropdown-item" type="submit">Deletar</button>
                       </form>
@@ -64,7 +64,7 @@
             </tr>
           @empty
             <tr>
-              <td colspan="5" class="text-center" > Não há beneficios na base. </td>
+              <td colspan="5" class="text-center" > Não há itens cadsatrados. </td>
             </tr>
           @endforelse
         </tbody>

@@ -4,7 +4,7 @@
     <div class="navbar-brand-box">
         <a href="index" class="logo logo-dark">
             <span class="logo-sm">
-                <img src="{{ URL::asset('build/images/favicon.png') }}" alt="" height="32">
+                <img src="{{ URL::asset('build/images/logo-mgs.png') }}" alt="" width="50">
             </span>
             <span class="logo-lg">
                 <img src="{{ URL::asset('build/images/logo-mgs.png') }}" alt="" height="32">
@@ -12,7 +12,7 @@
         </a>
         <a href="index" class="logo logo-light">
             <span class="logo-sm">
-                <img src="{{ URL::asset('build/images/favicon.png') }}" alt="" height="32">
+                <img src="{{ URL::asset('build/images/logo-mgs.png') }}" alt="" width="50">
             </span>
             <span class="logo-lg">
                 <img src="{{ URL::asset('build/images/logo-mgs.png') }}" alt="" height="32">
@@ -69,12 +69,7 @@
                                     role="button" data-key="t-signin">Funcionários
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="{{ route('beneficio-index') }}"
-                                    class="nav-link {{ request()->is('painel/beneficio/index') ? 'active' : '' }}"
-                                    role="button" data-key="t-signin">Benefícios
-                                </a>
-                            </li>
+                            
                             <li class="nav-item">
                                 <a href="{{ route('epi-index') }}"
                                     class="nav-link {{ request()->is('painel/epi/index') ? 'active' : '' }}"
@@ -86,7 +81,7 @@
                 </li>
 
 
-                {{-- Ponto --}}
+                {{-- Folha --}}
                 <li class="nav-item">
                     <a class="nav-link menu-link collapsed {{ in_array(request()->route()->getPrefix(),['painel/folha'])? 'active': '' }}"
                         href="#sidebarPonto" data-bs-toggle="collapse" role="button"
@@ -102,7 +97,13 @@
                                     class="nav-link {{ request()->is('painel/folha/index') ? 'active' : '' }}"
                                     role="button" data-key="t-signin">Folha de pagamento
                                 </a>
-                            </li>                            
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('item-folha-index') }}"
+                                    class="nav-link {{ request()->is('painel/item-folha/index') ? 'active' : '' }}"
+                                    role="button" data-key="t-signin">Itens da folha
+                                </a>
+                            </li>                           
                         </ul>
                     </div>
                 </li>

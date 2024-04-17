@@ -1,25 +1,25 @@
 @extends('layouts.master')
-@section('title') Editar Beneficio @endsection
+@section('title') Editar Item da Folha @endsection
 @section('content')
   @component('components.breadcrumb')
-    @slot('li_1') Beneficios @endslot
+    @slot('li_1') Item da Folha @endslot
     @slot('page') 
-      @if ($beneficio->id) Editar Beneficio
-      @else Cadastrar Beneficio @endif 
+      @if ($itemFolha->id) Editar Item da Folha
+      @else Cadastrar Item da Folha @endif 
     @endslot
     @slot('title')
-      @if ($beneficio->id) Editar: {{$beneficio->nome}}
-      @else Cadastrar Beneficio @endif
+      @if ($itemFolha->id) Editar: {{$itemFolha->nome}}
+      @else Cadastrar Item da Folha @endif
     @endslot
   @endcomponent
 
-  @if (session('beneficio-success'))
-    <div class="alert alert-success"> {{ session('beneficio-success') }} </div>
+  @if (session('success'))
+    <div class="alert alert-success"> {{ session('success') }} </div>
   @endif
 
   <div class="row">
     <div class="col">
-      <x-painel.beneficios.insert :beneficio="$beneficio"/>
+      <x-painel.item-folha.insert :itemFolha="$itemFolha"/>
     </div>
   </div>
 

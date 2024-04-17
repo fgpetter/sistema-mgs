@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EpiController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FolhaController;
-use App\Http\Controllers\BeneficioController;
+use App\Http\Controllers\ItemFolhaController;
 use App\Http\Controllers\FuncionarioController;
 use App\Http\Controllers\DadoBancarioController;
 use App\Http\Controllers\LancamentoPontoController;
@@ -51,13 +51,13 @@ Route::prefix('painel')->middleware('auth')->group(function () {
     Route::post('delete/{conta:uid}', [DadoBancarioController::class, 'delete'])->name('conta-delete');
   });
 
-  /* Beneficios */
-  Route::group(['prefix' => 'beneficio'], function () {
-    Route::get('index', [BeneficioController::class, 'index'])->name('beneficio-index');
-    Route::get('insert/{beneficio:uid?}', [BeneficioController::class, 'insert'])->name('beneficio-insert');
-    Route::post('create', [BeneficioController::class, 'create'])->name('beneficio-create');
-    Route::post('update/{beneficio:uid}', [BeneficioController::class, 'update'])->name('beneficio-update');
-    Route::post('delete/{beneficio:uid}', [BeneficioController::class, 'delete'])->name('beneficio-delete');
+  /* Itens Folha */
+  Route::group(['prefix' => 'item-folha'], function () {
+    Route::get('index', [ItemFolhaController::class, 'index'])->name('item-folha-index');
+    Route::get('insert/{itemFolha:uid?}', [ItemFolhaController::class, 'insert'])->name('item-folha-insert');
+    Route::post('create', [ItemFolhaController::class, 'create'])->name('item-folha-create');
+    Route::post('update/{itemFolha:uid}', [ItemFolhaController::class, 'update'])->name('item-folha-update');
+    Route::post('delete/{itemFolha:uid}', [ItemFolhaController::class, 'delete'])->name('item-folha-delete');
   });
 
   /* EPIs */

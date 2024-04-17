@@ -9,9 +9,14 @@
   'uppercase' => false,
   'pattern' => null,
   'title' => null,
+  'tooltip' => null
 ])
 
 @if($label) <label class="form-label">{!!$label!!} @if($required) <span class="text-danger"> * </span> @endif </label> @endif
+@if ($tooltip)
+  <span data-bs-toggle="tooltip" data-bs-html="true" title="{!! $tooltip !!}">
+  <i class="ri-information-line align-middle text-warning-emphasis" style="font-size: 1rem"></i></span>
+@endif
 <input 
   {{ $attributes->class(['form-control']) }}
   type="{{$type}}"

@@ -1,20 +1,16 @@
 @extends('layouts.master')
 @section('title')
-    Listagem de beneficios
+    Listagem de itens da folha de pagamento
 @endsection
 @section('content')
     @component('components.breadcrumb')
-        @slot('li_1')
-            Pessoas
-        @endslot
-        @slot('title')
-            Listagem de beneficios
-        @endslot
+        @slot('li_1') @endslot
+        @slot('title') @endslot
     @endcomponent
 
     <div class="row">
         <div class="col">
-            <x-painel.beneficios.list :beneficios="$beneficios" />
+            <x-painel.item-folha.list :itensFolha="$itensFolha" />
         </div>
     </div>
 @endsection

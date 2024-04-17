@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cadastro_beneficios', function (Blueprint $table) {
+        Schema::create('itens_folha', function (Blueprint $table) {
             $table->id();
             $table->string('uid');
             $table->string('nome')->nullable();
@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('evento_folha')->nullable();
             $table->string('tipo_evento')->nullable();
             $table->boolean('permite_lancamento')->nullable();
-            $table->string('tipo_beneficio')->nullable();
+            $table->string('tipo')->nullable();
             $table->text('observacoes')->nullable();
             $table->timestamps();
         });
@@ -34,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cadastro_beneficios');
+        Schema::dropIfExists('itens_folha');
     }
 };

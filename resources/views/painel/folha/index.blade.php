@@ -13,7 +13,7 @@
     @endcomponent
 
     <div class="row">
-        <div class="col-sm-6">
+        <div class="col-sm-8 col-xxl-6">
             <x-painel.folha.list :lancamentos="$lancamentos"/>
         </div>
     </div>
