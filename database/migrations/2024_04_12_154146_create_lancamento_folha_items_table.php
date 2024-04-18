@@ -13,19 +13,16 @@ return new class extends Migration
     {
         Schema::create('lancamentos_folha_itens', function (Blueprint $table) {
             $table->id();
-            $table->string('uid');
             $table->foreignId('lancamento_folha_id');
             $table->foreignId('funcionario_id');
-            $table->foreignId('beneficio_id');
+            $table->foreignId('item_id')->nullable();
+            $table->string('item_descricao')->nullable();
             $table->string('competencia', 7);
             $table->integer('quantidade');
-            $table->decimal('valor_unitario', 8, 2);
-            $table->decimal('valor_total', 8, 2);
-            $table->decimal('valor_empresa', 8, 2);
-            $table->string('complemento');
-            $table->decimal('horas_extra_50', 8, 2);
-            $table->decimal('horas_extra_100', 8, 2);
-            $table->decimal('horas_falta', 8, 2);
+            $table->decimal('valor_unitario', 8, 2)->nullable();
+            $table->decimal('valor_total', 8, 2)->nullable();
+            $table->decimal('valor_empresa', 8, 2)->nullable();
+            $table->decimal('valor_desconto', 8, 2)->nullable();
             $table->timestamps();
         });
     }

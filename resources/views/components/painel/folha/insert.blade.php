@@ -6,7 +6,7 @@
     
         <h4 class="card-title">Lancamento de folha</h4>
     
-        <form method="POST" action="{{ route('folha-salvar') }}" >
+        <form method="POST" action="{{ route('salvar-folha') }}" >
           @csrf
     
           <div class="row">
@@ -68,17 +68,26 @@
       <div class="card-body">
     
         <h4 class="card-title">Lancamento de ponto</h4>
+
+        @if($errors->any())
+          @foreach ($errors->all() as $error)
+            <span class="text-danger" >{{ $error }}</span>
+          @endforeach
+
+        @endif
     
-        <form method="POST" action="{{-- route('folha-salvar') --}}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('inserir-ponto') }}" enctype="multipart/form-data">
           @csrf
     
           <div class="row">
     
             <div class="col">
-              <x-forms.input-select name="adiciona_ponto" label="Adicionar ponto de funcionário" tooltip="Listados somente pontos fechados">
+              <input type="hidden" name="competencia" value="{{ $lancamento->competencia }}">
+              <input type="hidden" name="folha" value="{{ $lancamento->id }}">
+              <x-forms.input-select name="funcionario_id" label="Adicionar ponto de funcionário" tooltip="Listados somente pontos fechados">
                 <option>Selecione</option>
-                @foreach ($funcionarios as $funcionario)
-                  <option value="{{ $funcionario->uid }}">{{ $funcionario->nome }}</option>                  
+                @foreach ($folhasPonto as $folhaPonto)
+                  <option value="{{ $folhaPonto->id }}">{{ $folhaPonto->nome }}</option>                  
                 @endforeach
               </x-forms.input-select>
               @error('adiciona_ponto') <div class="text-warning">{{ $message }}</div> @enderror
@@ -105,18 +114,25 @@
         <form method="POST" action="{{-- route('lancamento-insert') --}}" enctype="multipart/form-data">
           @csrf
     
+          <input type="hidden" name="lancamento_id" value="{{ $lancamento->id }}">
           <div class="row gy-3">
     
             <div class="col-12">
               <x-forms.input-select name="funcionario" label="Funcionario">
                 <option>Selecione</option>
+                @foreach ($funcionarios as $funcionario)
+                  <option value="{{ $funcionario->id }}">{{ $funcionario->nome }}</option>
+                @endforeach
               </x-forms.input-select>
               @error('funcionario') <div class="text-warning">{{ $message }}</div> @enderror
             </div>
 
             <div class="col-12">
-              <x-forms.input-select name="beneficio" label="Beneficio">
+              <x-forms.input-select name="beneficio" label="Item da folha">
                 <option>Selecione</option>
+                @foreach ($itensFolha as $itemFolha )
+                  <option value="{{ $itemFolha->id }}">{{ $itemFolha->nome }}</option>
+                @endforeach
               </x-forms.input-select>
               @error('beneficio') <div class="text-warning">{{ $message }}</div> @enderror
             </div>

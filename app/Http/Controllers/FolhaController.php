@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ItemFolha;
 use App\Models\Funcionario;
 use Illuminate\Http\Request;
 use App\Models\LancamentoFolha;
+use App\Models\LancamentoFolhaItem;
 use App\Models\LancamentoPonto;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -31,7 +33,7 @@ class FolhaController extends Controller
    **/
   public function insert(LancamentoFolha $lancamento): View|RedirectResponse
   {
-    $funcionarios = Funcionario::select('id', 'nome')
+    $folhasPonto = Funcionario::select('id', 'nome')
       ->whereIn('id', function($query) use ($lancamento){
         $query->select('funcionario_id')
           ->from('lancamento_ponto')
@@ -39,8 +41,17 @@ class FolhaController extends Controller
           ->where('status', 'FECHADO')
           ->groupBy('funcionario_id');
       })->get();
+
+    $funcionarios = Funcionario::select('id', 'nome')->where('situacao', 'ATIVO')->get();
+
+    $itensFolha = ItemFolha::select('id', 'nome')->get();
     
-    return view('painel.folha.insert', ['lancamento' => $lancamento, 'funcionarios' => $funcionarios]);
+    return view('painel.folha.insert', [
+      'lancamento' => $lancamento, 
+      'funcionarios' => $funcionarios,
+      'folhasPonto' => $folhasPonto,
+      'itensFolha' => $itensFolha
+    ]);
   }
 
   /**
@@ -69,7 +80,7 @@ class FolhaController extends Controller
     ]);
 
     if(!$request->uid && LancamentoFolha::where('competencia', $request->competencia)->exists()){
-      return redirect()->route('folha-insert')->with('folha-error', 'Essa competência já existe');
+      return redirect()->route('folha-insert')->with('error', 'Essa competência já existe');
     }
 
     $uid = $request->uid ?? config('hashing.uid');
@@ -84,9 +95,74 @@ class FolhaController extends Controller
       ]
     );
 
-    return redirect()->route('folha-insert', $uid)->with('folha-success', 'Lancamento de folha salvo com sucesso');
+    return redirect()->route('folha-insert', $uid)->with('success', 'Lancamento de folha salvo com sucesso');
   }
 
+  /**
+   * Insere ponto na folha
+   *
+   * @param Request $request
+   * @return RedirectResponse
+   */
+  public function inserePonto(Request $request): RedirectResponse
+  {
+    $request->validate([
+      'funcionario_id' => ['required', 'integer', 'exists:funcionarios,id'],
+      'competencia' => ['required', 'date_format:Y-m', 'exists:lancamento_ponto,competencia'],
+      'folha' => ['required', 'integer', 'exists:lancamentos_folha,id'],
+    ],[
+      'funcionario_id.required' => 'Funcionário obrigatório',
+      'funcionario_id.integer' => 'Funcionário inválido',
+      'funcionario_id.exists' => 'Funcionário inválido',
+    ]);
+
+    $ponto = LancamentoPonto::select('qtd_min_50', 'qtd_min_100', 'qtd_min_desc')
+      ->where('funcionario_id', $request->funcionario_id)
+      ->where('competencia', $request->competencia)
+      ->where('status', 'FECHADO')
+      ->get();
+
+    if($ponto->isEmpty()){
+      return redirect()->back()->with('error', 'Funcionário não possui ponto ');
+    }
+
+    $totalHe50 = $ponto->sum('qtd_min_50');
+    $totalHe100 = $ponto->sum('qtd_min_100');
+    $totalDesc = $ponto->sum('qtd_min_desc');
+
+    if($totalHe50 > 0){
+      LancamentoFolhaItem::create([
+        'lancamento_folha_id' => $request->folha,
+        'funcionario_id' => $request->funcionario_id,
+        'item_descricao' => 'Horas Extras 50%',
+        'competencia' => $request->competencia,
+        'quantidade' => round($totalHe50/60, 2)
+      ]);
+    }
+
+    if($totalHe100 > 0){
+      LancamentoFolhaItem::create([
+        'lancamento_folha_id' => $request->folha,
+        'funcionario_id' => $request->funcionario_id,
+        'item_descricao' => 'Horas Extras 100%',
+        'competencia' => $request->competencia,
+        'quantidade' => round($totalHe100/60, 2)
+      ]);
+    }
+
+    if($totalDesc > 0){
+      LancamentoFolhaItem::create([
+        'lancamento_folha_id' => $request->folha,
+        'funcionario_id' => $request->funcionario_id,
+        'item_descricao' => 'Faltas / Atrasos',
+        'competencia' => $request->competencia,
+        'quantidade' => round($totalDesc/60, 2)
+      ]);
+    }
+          
+
+    return redirect()->back()->with('success', 'Ponto inserido com sucesso');
+  }
 
 
 }
