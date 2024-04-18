@@ -74,13 +74,15 @@ Route::prefix('painel')->middleware('auth')->group(function () {
     Route::post('insert/{funcionario:uid}', [LancamentoPontoController::class, 'insert'])->name('lancamento-ponto-insert');
     Route::post('delete', [LancamentoPontoController::class, 'destroy'])->name('lancamento-ponto-delete');
     Route::post('status-ponto/{funcionario:uid}', [LancamentoPontoController::class, 'statusPonto'])->name('status-ponto');
+    Route::get('relatorio-ponto', [LancamentoPontoController::class, 'relatorio'])->name('relatorio-ponto');
   });
 
   /* Folha de pagamento */
   Route::group(['prefix' => 'folha'], function () {
     Route::get('index', [FolhaController::class, 'index'])->name('folha-index');
     Route::get('insert/{lancamento:uid?}', [FolhaController::class, 'insert'])->name('folha-insert');
-    Route::post('salva-folha', [FolhaController::class, 'salvaFolha'])->name('folha-salvar');
+    Route::post('salva-folha', [FolhaController::class, 'salvaFolha'])->name('salvar-folha');
+    Route::post('inserir-ponto', [FolhaController::class, 'inserePonto'])->name('inserir-ponto');
 
   });
   

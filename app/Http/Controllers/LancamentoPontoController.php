@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\Funcionario;
 use Illuminate\Http\Request;
 use App\Models\LancamentoPonto;
+use App\Models\PontoConsolidado;
 
 class LancamentoPontoController extends Controller
 {
@@ -138,14 +139,62 @@ class LancamentoPontoController extends Controller
         
     }
 
+    /**
+     * Gera fechamento do ponto
+     *
+     * @param Funcionario $funcionario
+     * @param Request $request
+     * @return void
+     */
     public function statusPonto(Funcionario $funcionario, Request $request)
     {
         $competencia = $request->competencia;
+
+        if($request->status == 'FECHADO'){
+
+            $ponto = LancamentoPonto::select('funcionario_id', 'min_trabalhados', 'qtd_min_50', 'qtd_min_100', 'qtd_min_desc')
+                ->where('funcionario_id', $funcionario->id)
+                ->where('competencia', $competencia)
+                ->get();
+            
+            PontoConsolidado::create([
+                'funcionario_id' => $funcionario->id,
+                'competencia' => $competencia,
+                'he_50' => round($ponto->sum('qtd_min_50') / 60, 2),
+                'he_100' => round($ponto->sum('qtd_min_100') / 60, 2),
+                'faltas' => round($ponto->sum('qtd_min_desc') / 60, 2),
+                'dias_trabalhados' => $ponto->where('min_trabalhados', '>', 0)->count(),
+            ]);
+        }
+
+        if($request->status == 'ABERTO'){
+            PontoConsolidado::where('funcionario_id', $funcionario->id)
+                ->where('competencia', $competencia)
+                ->delete();
+        }
+            
         LancamentoPonto::where('funcionario_id', $funcionario->id)->where('competencia', $competencia)->update([
             'status' => $request->status
         ]);
 
         return back()->with('success', 'Ponto atualizado com sucesso');
     }
+
+    /**
+     * Apresenta relatório de horas ponto
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function relatorio(Request $request)
+    {
+        $ano_mes_atual = Carbon::now()->format('Y-m');
+
+        $pontos = PontoConsolidado::where('competencia', $request->competencia ?? $ano_mes_atual)->get();
+        $funcionarios = Funcionario::all();
+
+        return view('painel.ponto.relatorio', compact('pontos', 'funcionarios'));
+    }
+
     
 }

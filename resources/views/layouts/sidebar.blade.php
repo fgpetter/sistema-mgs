@@ -52,15 +52,15 @@
                     </div>
                 </li>
 
-                {{-- Pessoas --}}
+                {{-- Funcionários --}}
                 <li class="nav-item">
-                    <a class="nav-link menu-link collapsed {{ in_array(request()->route()->getPrefix(),['painel/funcionario', 'painel/beneficio', 'painel/epi'])? 'active': '' }}"
+                    <a class="nav-link menu-link collapsed {{ in_array(request()->route()->getPrefix(),['painel/funcionario', 'painel/beneficio', 'painel/epi', 'painel/lancamentoPonto'])? 'active': '' }}"
                         href="#sidebarPessoas" data-bs-toggle="collapse" role="button"
-                        aria-expanded="{{ in_array(request()->route()->getPrefix(),['painel/funcionario', 'painel/beneficio', 'painel/epi'])? 'true': 'false' }}"
+                        aria-expanded="{{ in_array(request()->route()->getPrefix(),['painel/funcionario', 'painel/beneficio', 'painel/epi', 'painel/lancamentoPonto'])? 'true': 'false' }}"
                         aria-controls="sidebarPessoas">
                         <i class="ph-identification-card"></i> <span>FUNCIONÁRIOS</span>
                     </a>
-                    <div class="collapse menu-dropdown {{ in_array(request()->route()->getPrefix(),['painel/funcionario', 'painel/beneficio', 'painel/epi'])? 'show': '' }}"
+                    <div class="collapse menu-dropdown {{ in_array(request()->route()->getPrefix(),['painel/funcionario', 'painel/beneficio', 'painel/epi', 'painel/lancamentoPonto'])? 'show': '' }}"
                         id="sidebarPessoas">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
@@ -70,6 +70,13 @@
                                 </a>
                             </li>
                             
+                            <li class="nav-item">
+                                <a href="{{ route('relatorio-ponto') }}"
+                                    class="nav-link {{ request()->is('painel/lancamentoPonto/relatorio-ponto') ? 'active' : '' }}"
+                                    role="button" data-key="t-signin">Relatório de ponto
+                                </a>
+                            </li>
+
                             <li class="nav-item">
                                 <a href="{{ route('epi-index') }}"
                                     class="nav-link {{ request()->is('painel/epi/index') ? 'active' : '' }}"
@@ -82,7 +89,7 @@
 
 
                 {{-- Folha --}}
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link menu-link collapsed {{ in_array(request()->route()->getPrefix(),['painel/folha'])? 'active': '' }}"
                         href="#sidebarPonto" data-bs-toggle="collapse" role="button"
                         aria-expanded="{{ in_array(request()->route()->getPrefix(),['painel/folha'])? 'true': 'false' }}"
@@ -106,7 +113,7 @@
                             </li>                           
                         </ul>
                     </div>
-                </li>
+                </li> --}}
 
 
             </ul>
