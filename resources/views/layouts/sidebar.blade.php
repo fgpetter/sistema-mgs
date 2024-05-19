@@ -80,7 +80,14 @@
                             <li class="nav-item">
                                 <a href="{{ route('epi-index') }}"
                                     class="nav-link {{ request()->is('painel/epi/index') ? 'active' : '' }}"
-                                    role="button" data-key="t-signin">EPI's
+                                    role="button" data-key="t-signin">Cadastro de EPI's
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="{{ route('epi-controle') }}"
+                                    class="nav-link {{ request()->is('painel/epi/controle') ? 'active' : '' }}"
+                                    role="button" data-key="t-signin">Controle de EPI's
                                 </a>
                             </li>
                         </ul>

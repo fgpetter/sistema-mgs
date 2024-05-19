@@ -7,6 +7,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\FuncionarioRequest;
+use App\Models\FuncionarioEpi;
 
 class FuncionarioController extends Controller
 {
@@ -62,13 +63,21 @@ class FuncionarioController extends Controller
    **/
   public function update(FuncionarioRequest $request, Funcionario $funcionario): RedirectResponse
   {
-    $validated = $request->except('uid', '_token');
+    $validated = $request->except('uid', '_token', 'botina', 'calca', 'camiseta');
     $validated = Arr::map($validated, function ($value, string $key) {
       if(str_contains($value, ',')){
         $value = floatval(str_replace(',','.', $value));
       }
       return $value;
     });
+
+    FuncionarioEpi::updateOrCreate(
+      ['funcionario_id' => $funcionario->id], 
+      [
+        'botina' => $request->botina,
+        'calca' => $request->calca,
+        'camiseta' => $request->camiseta,
+      ]);
 
     $funcionario->update($validated);
 

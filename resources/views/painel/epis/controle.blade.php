@@ -1,18 +1,18 @@
 @extends('layouts.master')
 @section('title')
-    Listagem de epis
+    Controle de epis
 @endsection
 @section('content')
     @component('components.breadcrumb')
         @slot('li_1')@endslot
         @slot('title')
-            Listagem de EPIs
+            Controle de EPIs
         @endslot
     @endcomponent
 
     <div class="row">
         <div class="col">
-            <x-painel.epis.list :epis="$epis" />
+            <x-painel.epis.controle :controles="$controles" />
         </div>
     </div>
 @endsection

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use App\Models\CadastroEpi;
+use App\Models\ControleEpi;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 
@@ -58,7 +59,7 @@ class EpiController extends Controller
   }
 
   /**
-   * Remove conta
+   * Remove epi
    *
    * @param Epi $user
    * @return RedirectResponse
@@ -68,6 +69,52 @@ class EpiController extends Controller
     $epi->delete();
 
     return redirect()->back()->with('epi-success', 'EPI removido');
+  }
+
+
+  /**
+   * Gera pagina de controle de epis
+   *
+   * @return View
+   **/
+  public function controleEpi(): View
+  {
+    $controles = ControleEpi::orderBy('funcionario_id')->get();
+    return view('painel.epis.controle', ['controles' => $controles]);
+  }
+
+  /**
+   * Registra entrega de EPI
+   *
+   * @param Request $request
+   * @param ControleEpi $controle
+   * @return RedirectResponse
+   **/
+  public function registraEntregaEpi(Request $request, ControleEpi $controle){
+
+    
+    if(!$controle->id){
+      $controle = ControleEpi::create($request->all());
+      dd($controle);
+    } else {
+      $controle->update($request->all());
+    }
+
+    return redirect()->back()->with('epi-success', 'Entrega registrada');
+  }
+
+  /**
+   * Registra entrega de EPI
+   *
+   * @param ControleEpi $controle
+   * @return RedirectResponse
+   **/
+  public function removeEntregaEpi(ControleEpi $controle){
+
+    $controle->delete();
+
+    return redirect()->back()->with('epi-success', 'Entrega removida');
+
   }
 
 }

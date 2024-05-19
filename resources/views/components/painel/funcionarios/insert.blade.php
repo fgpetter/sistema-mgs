@@ -30,6 +30,13 @@
                 Dados Prof. e Financeiro
             </a>
         </li>
+        @if ($funcionario->id)
+        <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="tab" href="#epi" role="tab" aria-selected="false">
+                EPIs
+            </a>
+        </li>
+        @endif
       </ul>
 
       <!-- Tab panes -->
@@ -40,7 +47,7 @@
               <div class="col-sm-6">
                 <x-forms.input-field 
                   :value="old('nome') ?? $funcionario->nome ?? null" 
-                  name="nome" label="Nome Completo <span class='text-danger' >*</span>" :required="true"
+                  name="nome" label="Nome Completo" :required="true"
                 />
                 @error('nome') <div class="text-warning">{{ $message }}</div> @enderror 
               </div>
@@ -592,6 +599,30 @@
 
             </div>
           </div>
+
+          @if ($funcionario->id)
+            <div class="tab-pane" id="epi" role="tabpanel"> <!-- EPIs -->
+              <div class="row gy-3">
+
+                <div class="col-sm-3">
+                  <x-forms.input-field :value="old('botina') ?? $funcionario->epi->botina ?? null" name="botina" label="Botina" />
+                  @error('botina') <div class="text-warning">{{ $message }}</div> @enderror 
+                </div>
+
+                <div class="col-sm-3">
+                  <x-forms.input-field :value="old('calca') ?? $funcionario->epi->calca ?? null" name="calca" label="Calça" />
+                  @error('calca') <div class="text-warning">{{ $message }}</div> @enderror 
+                </div>
+
+                <div class="col-sm-3">
+                  <x-forms.input-field :value="old('camiseta') ?? $funcionario->epi->camiseta ?? null" name="camiseta" label="Camiseta" />
+                  @error('camiseta') <div class="text-warning">{{ $message }}</div> @enderror 
+                </div>
+
+              </div>
+            </div>
+          @endif
+
 
       </div>
 

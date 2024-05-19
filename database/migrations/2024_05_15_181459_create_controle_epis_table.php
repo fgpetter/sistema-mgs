@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('epis', function (Blueprint $table) {
+        Schema::create('controle_epis', function (Blueprint $table) {
             $table->id();
-            $table->string('uid');
-            $table->unsignedBigInteger('epi_id');
-            $table->foreign('epi_id')->references('id')->on('cadastro_epis');
+            $table->foreignId('epi_id');
             $table->foreignId('funcionario_id');
-            $table->integer('quantidade');
-            $table->date('data_entrega');
+            $table->integer('quantidade')->default(1);
+            $table->string('tamanho')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('epis');
+        Schema::dropIfExists('controle_epis');
     }
 };
