@@ -42,7 +42,14 @@ class LancamentoPontoController extends Controller
         $lancamentos['total_qtd_min_100'] = array_sum(array_column($lancamentos, 'qtd_min_100'));
         $lancamentos['status'] = $ponto->first()->status ?? null;
 
-        return view('painel.ponto.index', ['ponto' => $lancamentos, 'funcionario' => $funcionario]);
+        // trata horario de entrada e saida
+        if($funcionario->hr_entrada){
+            $hr_padrao = explode(':', $funcionario->hr_entrada);
+        } else {
+            $hr_padrao = [7,30];
+        }
+
+        return view('painel.ponto.index', ['ponto' => $lancamentos, 'funcionario' => $funcionario, 'hr_padrao' => $hr_padrao]);
     }
 
     /**

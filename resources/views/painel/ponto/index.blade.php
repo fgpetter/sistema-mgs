@@ -99,9 +99,6 @@
           <form action="{{ route('lancamento-ponto-insert', $funcionario->uid) }}" method="post" id="formPonto">
             @for ($i = 1; $i <= $dias+1; $i++)
               @php
-                if($funcionario->hr_entrada){
-                  $hr = explode(':', $funcionario->hr_entrada);
-                }
                 $carbonday = Carbon\Carbon::createFromDate($ano_atual, $mes_atual, $i);
                 $data = $carbonday->format('d/m/Y');
                 $data_banco = $carbonday->format('Y-m-d');
@@ -109,10 +106,10 @@
                 $dia_da_semana = $carbonday->dayOfWeek;
                 $rand_min = rand(0, 15);
 
-                $entrada_1 = Carbon\Carbon::createFromtime($hr[0] ?? 8, ($hr[1] ?? 0)+$rand_min)->format('H:i');
-                $saida_1 = Carbon\Carbon::createFromtime(($hr[0] ?? 8)+4, ($hr[1] ?? 0)+$rand_min)->format('H:i');
-                $entrada_2 = Carbon\Carbon::createFromtime(($hr[0] ?? 8)+5, ($hr[1] ?? 0)+$rand_min)->format('H:i');
-                $saida_2 = Carbon\Carbon::createFromtime(($hr[0] ?? 8)+9, ($hr[1] ?? 0)+$rand_min)->format('H:i');
+                $entrada_1 = Carbon\Carbon::createFromtime( $hr_padrao[0]  , $hr_padrao[1]+$rand_min)->format('H:i');
+                $saida_1   = Carbon\Carbon::createFromtime( $hr_padrao[0]+4, $hr_padrao[1]+30+$rand_min)->format('H:i');
+                $entrada_2 = Carbon\Carbon::createFromtime( $hr_padrao[0]+5, $hr_padrao[1]+30+$rand_min)->format('H:i');
+                $saida_2   = Carbon\Carbon::createFromtime( $hr_padrao[0]+10, $hr_padrao[1]+$rand_min)->format('H:i');
               @endphp
               <tr>
                 @csrf

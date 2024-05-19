@@ -46,6 +46,7 @@ return new class extends Migration
       $table->date('data_opcao_fgts')->nullable();
       $table->string('conta_fgts')->nullable();
       $table->string('cbo')->nullable();
+      $table->string('cbo_desc')->nullable();
       $table->string('endereco')->nullable();
       $table->string('complemento')->nullable();
       $table->string('bairro')->nullable();
@@ -58,6 +59,7 @@ return new class extends Migration
       $table->string('cargo')->nullable();
       $table->string('funcao')->nullable();
       $table->string('escolaridade')->nullable();
+      $table->integer('jornada')->default(0);
       $table->foreignId('local_trabalho_id')->nullable();
       $table->date('admissao')->nullable();
       $table->date('demissao')->nullable();
