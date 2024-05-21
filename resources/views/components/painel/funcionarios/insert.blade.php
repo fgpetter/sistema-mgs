@@ -334,10 +334,12 @@
                 />
                 @error('cbo') <div class="text-warning">{{ $message }}</div> @enderror 
               </div>
-              <div class="col-sm-3">
-                <label for="cbo_desc" class="form-label">Descrição CBO</label>
-                <input type="text" name="cbo_desc" value="{{ CboList($funcionario->cbo) ?? null }}" class="form-control" readonly> 
-              </div>
+              @if($funcionario->cbo)
+                <div class="col-sm-3">
+                  <label for="cbo_desc" class="form-label">Descrição CBO</label>
+                  <input type="text" name="cbo_desc" value="{{ CboList($funcionario->cbo) ?? null }}" class="form-control text-secondary" disabled> 
+                </div>
+              @endif
       
             </div>
           </div>
