@@ -104,7 +104,7 @@
                 $data_banco = $carbonday->format('Y-m-d');
                 $nome_do_dia = $carbonday->dayName;
                 $dia_da_semana = $carbonday->dayOfWeek;
-                $rand_min = rand(0, 15);
+                $rand_min = rand(0, 5);
 
                 $entrada_1 = Carbon\Carbon::createFromtime( $hr_padrao[0]  , $hr_padrao[1]+$rand_min)->format('H:i');
                 $saida_1   = Carbon\Carbon::createFromtime( $hr_padrao[0]+4, $hr_padrao[1]+30+$rand_min)->format('H:i');
