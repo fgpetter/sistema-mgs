@@ -176,9 +176,11 @@
               @if($nome_do_dia == 'domingo') 
                 <tr>
                   <td colspan="8">
+                    @if($ponto['status'] != 'FECHADO')
                     <button class="btn btn-sm btn-success float-end px-3" onclick="getElementById('formPonto').submit()">
                       <span class="fs-5"> SALVAR </span> 
                     </button>
+                    @endif
                   </td>
                 </tr> 
               @endif
