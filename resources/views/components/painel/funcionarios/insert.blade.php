@@ -594,7 +594,7 @@
                   @empty
                     <tr>
                       <td colspan="6" class="text-center" > Não há conta cadastrada. &nbsp; &nbsp;
-                        <a class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modal_banco_cadastro">Cadastrar</a>
+                        <a class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modal_banco_cadastro">Cadastrar conta bancária</a>
                       </td>
                     </tr>
                   @endforelse
@@ -636,7 +636,7 @@
       <div class="row mt-3">
         <div class="col-sm-12">
           <button type="submit"
-            class="btn btn-primary px-4">{{ $funcionario->id ? 'Atualizar' : 'Cadastrar' }}
+            class="btn btn-success px-4">{{ $funcionario->id ? 'Atualizar' : 'Cadastrar' }}
           </button>
         </div>
       </div>
