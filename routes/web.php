@@ -8,6 +8,7 @@ use App\Http\Controllers\FolhaController;
 use App\Http\Controllers\ItemFolhaController;
 use App\Http\Controllers\FuncionarioController;
 use App\Http\Controllers\DadoBancarioController;
+use App\Http\Controllers\DependenteController;
 use App\Http\Controllers\LancamentoPontoController;
 
 Auth::routes();
@@ -42,6 +43,13 @@ Route::prefix('painel')->middleware('auth')->group(function () {
     Route::post('update/{funcionario:uid}', [FuncionarioController::class, 'update'])->name('funcionario-update');
     Route::post('delete/{funcionario:uid}', [FuncionarioController::class, 'delete'])->name('funcionario-delete');
     Route::post('delete-curriculo/{funcionario:uid}', [FuncionarioController::class, 'curriculoDelete'])->name('curriculo-delete');
+  });
+
+  /* Dados bancários */
+  Route::group(['prefix' => 'dependente'], function () {
+    Route::post('create', [DependenteController::class, 'create'])->name('dependente-create');
+    Route::post('update/{dependente:uid}', [DependenteController::class, 'update'])->name('dependente-update');
+    Route::post('delete/{dependente:uid}', [DependenteController::class, 'delete'])->name('dependente-delete');
   });
 
   /* Dados bancários */

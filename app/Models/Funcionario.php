@@ -42,5 +42,14 @@ class Funcionario extends Model
         return $this->hasOne(FuncionarioEpi::class);
     }
 
+    /**
+     * Retorna o ponto do funcionário.
+     */
+    public function dependentes(): HasMany
+    {
+        return $this->hasMany(Dependente::class);
+    }
+
+
 
 }

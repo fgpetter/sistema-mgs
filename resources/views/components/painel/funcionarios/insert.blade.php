@@ -32,10 +32,17 @@
         </li>
         @if ($funcionario->id)
         <li class="nav-item">
+          <a class="nav-link" data-bs-toggle="tab" href="#dependentes" role="tab" aria-selected="false">
+              Dependentes
+          </a>
+        </li>
+
+        <li class="nav-item">
             <a class="nav-link" data-bs-toggle="tab" href="#epi" role="tab" aria-selected="false">
                 EPIs
             </a>
         </li>
+
         @endif
       </ul>
 
@@ -556,8 +563,9 @@
                   name="hr_entrada" label="Horário de entrada" />
 
               </div>
-      
+
               @if ($funcionario->id)
+              <h6 class="mt-4 mb-1 ps-3">Dados Bancários</h6>
               <div class="table-responsive" style="min-height: 25vh">
                 <table class="table table-responsive table-striped align-middle table-nowrap mb-0">
                 <thead>
@@ -607,6 +615,57 @@
           </div>
 
           @if ($funcionario->id)
+
+
+            <div class="tab-pane" id="dependentes" role="tabpanel"> <!-- Dependentes -->
+              
+              <a class="btn btn-sm btn-primary my-3" data-bs-toggle="modal" data-bs-target="#modal_dependente_cadastro">Cadastrar dependente</a>
+
+              <div class="row gy-3">
+                <div class="table-responsive" style="min-height: 25vh">
+                  <table class="table table-responsive table-striped align-middle table-nowrap mb-0">
+                  <thead>
+                    <tr>
+                      <th scope="col">Nome</th>
+                      <th scope="col">Nascimento</th>
+                      <th scope="col">Parentesco</th>
+                      <th scope="col" style="width: 5%; white-space: nowrap;" ></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @forelse ($funcionario->dependentes as $dependente)
+                      <tr>
+                        <td>{{$dependente->nome}}</td>
+                        <td>{{$dependente->nascimento}}</td>
+                        <td>{{$dependente->conta}}</td>
+                        <td>
+                          <div class="dropdown">
+                            <a href="#" role="button" id="dropdownMenuLink1" data-bs-toggle="dropdown" aria-expanded="false">
+                              <i class="ph-dots-three-outline-vertical" style="font-size: 1.5rem" 
+                                data-bs-toggle="tooltip" data-bs-placement="top" title="Detalhes e edição"></i>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink1">
+                              <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="{{"#modal_dependente_$dependente->uid"}}">Editar</a></li>
+                              <li><button class="dropdown-item" 
+                                onclick="document.getElementById('dependente-delete-{{$dependente->uid}}').submit(); return false;">Deletar</button>
+                              </li>
+                            </ul>
+                          </div>
+                        </td>
+                      </tr>
+
+                    @empty
+                      <tr>
+                        <td colspan="6" class="text-center" > Não há dependentes cadastrados. </td>
+                      </tr>
+                    @endforelse
+                  </tbody>
+                  </table>
+                </div>
+  
+              </div>
+            </div>            
+            
             <div class="tab-pane" id="epi" role="tabpanel"> <!-- EPIs -->
               <div class="row gy-3">
 
@@ -651,6 +710,13 @@
       @endforeach
 
       <x-painel.funcionarios.form-delete route="funcionario-delete" id="{{ $funcionario->uid }}" />
+
+      @foreach($funcionario->dependentes as $dependente)
+        <x-modals.dependentes :dependente="$dependente" :funcionario="$funcionario"/>
+        <form id="dependente-delete-{{$dependente->uid}}" method="POST" action="{{ route('dependente-delete', $dependente->uid) }}">@csrf</form>
+      @endforeach
+
+      <x-modals.dependentes :funcionario="$funcionario"/>
 
     @endif
   </div>

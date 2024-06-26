@@ -20,7 +20,10 @@ return new class extends Migration
             $table->string('parentesco');
             $table->enum('sexo', ['MASCULINO', 'FEMININO', 'OUTRO']);
             $table->enum('est_civil', ['SOLTEIRO', 'CASADO', 'DIVORCIADO', 'SEPARADO', 'VIUVO']);
-            $table->text('instrucao_depentende')->nullable();
+            $table->string('cartorio');
+            $table->string('num_registro');
+            $table->string('livro');
+            $table->string('folha');
             $table->timestamps();
         });
     }
