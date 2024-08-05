@@ -51,3 +51,16 @@ window.onload = function(){
   $('.money').mask('000.000.000.000.000,00', {reverse: true});
   $('.cep').mask('00000-000');
 };
+
+/**
+ * Form de busca em tabelas
+ */
+function search(e, url, tipo){
+  if(e.keyCode === 13){
+    e.preventDefault();
+    url = url.split('?')[0] // remove parametros
+    if(e.target.value != undefined){
+      window.location.href = url+'?'+tipo+'='+e.target.value
+    }
+  }
+}

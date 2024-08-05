@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Funcionario;
 use Illuminate\Support\Arr;
+use Illuminate\Http\Request;
+use App\Models\FuncionarioEpi;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\FuncionarioRequest;
-use App\Models\FuncionarioEpi;
+use Illuminate\Database\Eloquent\Builder;
+
 
 class FuncionarioController extends Controller
 {
@@ -16,9 +19,22 @@ class FuncionarioController extends Controller
    *
    * @return View
    **/
-  public function index(): View
+  public function index(Request $request): View
   {
-    $funcionarios = Funcionario::all();
+    $name = $request->name;
+    $busca_nome = $request->buscanome;
+
+
+    $funcionarios = Funcionario::select()
+      ->when($name, function (Builder $query, $name) {
+        $query->orderBy('nome', $name);
+      }, function (Builder $query) {
+        $query->orderBy('nome');
+      })
+      ->when($busca_nome, function (Builder $query, $busca_nome) {
+        $query->where('nome', 'LIKE', "%$busca_nome%");
+      })
+      ->get();
     return view('painel.funcionarios.index', ['funcionarios' => $funcionarios]);
   }
 
