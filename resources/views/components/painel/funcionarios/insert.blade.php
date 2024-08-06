@@ -673,17 +673,17 @@
               <div class="row gy-3">
 
                 <div class="col-sm-3">
-                  <x-forms.input-field :value="old('botina') ?? $funcionario->epi->botina ?? null" name="botina" label="Botina" />
+                  <x-forms.input-field :value="old('botina') ?? $funcionario->epi->botina ?? null" name="botina" label="Botina" placeholder="Digite o tamanho" />
                   @error('botina') <div class="text-warning">{{ $message }}</div> @enderror 
                 </div>
 
                 <div class="col-sm-3">
-                  <x-forms.input-field :value="old('calca') ?? $funcionario->epi->calca ?? null" name="calca" label="Calça" />
+                  <x-forms.input-field :value="old('calca') ?? $funcionario->epi->calca ?? null" name="calca" label="Calça" placeholder="Digite o tamanho"/>
                   @error('calca') <div class="text-warning">{{ $message }}</div> @enderror 
                 </div>
 
                 <div class="col-sm-3">
-                  <x-forms.input-field :value="old('camiseta') ?? $funcionario->epi->camiseta ?? null" name="camiseta" label="Camiseta" />
+                  <x-forms.input-field :value="old('camiseta') ?? $funcionario->epi->camiseta ?? null" name="camiseta" label="Camiseta" placeholder="Digite o tamanho"/>
                   @error('camiseta') <div class="text-warning">{{ $message }}</div> @enderror 
                 </div>
 
