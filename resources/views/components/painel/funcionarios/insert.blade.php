@@ -507,10 +507,10 @@
 
               <div class="col-sm-2">
                 <x-forms.input-field 
-                  :value="old('periculosidade') ?? $funcionario->periculosidade ?? null" 
-                  name="periculosidade" label="Periculosidade" class="money"
+                  :value="old('assiduidade') ?? $funcionario->assiduidade ?? null" 
+                  name="assiduidade" label="Assiduidade" class="money"
                 />
-                @error('periculosidade') <div class="text-warning">{{ $message }}</div> @enderror 
+                @error('assiduidade') <div class="text-warning">{{ $message }}</div> @enderror 
               </div>
 
               <div class="col-sm-2">

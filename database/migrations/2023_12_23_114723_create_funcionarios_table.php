@@ -66,7 +66,7 @@ return new class extends Migration
       $table->double('salario', 8, 2)->nullable();
       $table->double('quinquenio', 8, 2)->nullable();
       $table->double('func_gratificada', 8, 2)->nullable();
-      $table->double('periculosidade', 8, 2)->nullable();
+      $table->double('assiduidade', 8, 2)->nullable();
       $table->boolean('prestador_servico')->nullable();
       $table->boolean('vale_transporte')->nullable();
       $table->boolean('contribuicao')->nullable();

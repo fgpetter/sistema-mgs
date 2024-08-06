@@ -32,7 +32,7 @@ class FuncionarioRequest extends FormRequest
       'cep' => ['nullable','string', 'max:9', 'min:9'],
       'uf' => ['nullable', 'string', 'max:2', 'min:2'],
       'salario' => ['nullable', 'decimal:2'],
-      'periculosidade' => ['nullable', 'decimal:2'],
+      'assiduidade' => ['nullable', 'decimal:2'],
       'quinquenio' => ['nullable', 'decimal:2'],
       'func_gratificada' => ['nullable', 'decimal:2'],
     ];
@@ -55,7 +55,7 @@ class FuncionarioRequest extends FormRequest
       'uf.max' => 'Inválido',
       'admissao.date' => 'A data não é válida',
       'salario' => 'Inváldo',
-      'periculosidade' => 'Inváldo',
+      'assiduidade' => 'Inváldo',
       'quinquenio' => 'Inváldo',
       'func_gratificada' => 'Inváldo',
 
@@ -66,7 +66,7 @@ class FuncionarioRequest extends FormRequest
   {
     $this->merge([
       'salario' => ($this->salario) ? str_replace(',','.', str_replace('.','', $this->salario)) : null,
-      'periculosidade' => ($this->periculosidade) ? str_replace(',','.', str_replace('.','', $this->periculosidade)) : null,
+      'assiduidade' => ($this->periculosidade) ? str_replace(',','.', str_replace('.','', $this->periculosidade)) : null,
       'quinquenio' => ($this->quinquenio) ? str_replace(',','.', str_replace('.','', $this->quinquenio)) : null,
       'func_gratificada' => ($this->func_gratificada) ? str_replace(',','.', str_replace('.','', $this->func_gratificada)) : null,
     ]);
