@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Support\Arr;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -46,7 +45,7 @@ class FuncionarioRequest extends FormRequest
   public function messages(): array
   {
     return [
-      'nome_razao.required' => 'Preencha o campo nome ou razão social',
+      'nome.required' => 'Preencha o campo nome',
       'cpf_cnpj.min' => 'CPF inválido',
       'cpf_cnpj.max' => 'CPF inválido',
       'cep.min' => 'CEP inválido',

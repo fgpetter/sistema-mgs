@@ -475,8 +475,11 @@
               </div>
       
               <div class="col-sm-4">
-                <x-forms.input-select name="local_trabalho_id" label="Local de trabalho">
-                  <option @selected($funcionario->local_trabalho_id == "01") value="01">Selecione</option>
+                <x-forms.input-select name="local_trabalho" label="Local de trabalho">
+                  <option value="">Selecione</option>
+                  <option @selected($funcionario->local_trabalho == "canteiro") value="canteiro">Canteiro de Obras</option>
+                  <option @selected($funcionario->local_trabalho == "administrativo") value="administrativo">Administrativo</option>
+                  <option @selected($funcionario->local_trabalho == "deposito") value="deposito">Depósito/Pátio</option>
                 </x-forms.input-select>
                 @error('local_trabalho') <div class="text-warning">{{ $message }}</div> @enderror 
               </div>

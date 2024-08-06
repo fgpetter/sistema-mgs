@@ -60,7 +60,7 @@ return new class extends Migration
       $table->string('funcao')->nullable();
       $table->string('escolaridade')->nullable();
       $table->integer('jornada')->default(0);
-      $table->foreignId('local_trabalho_id')->nullable();
+      $table->string('local_trabalho')->nullable();
       $table->date('admissao')->nullable();
       $table->date('demissao')->nullable();
       $table->double('salario', 8, 2)->nullable();
