@@ -521,19 +521,11 @@
 
               <div class="col-sm-2">
                 <x-forms.input-field 
-                  :value="old('quinquenio') ?? $funcionario->quinquenio ?? null" 
-                  name="quinquenio" label="Quinquenio" class="money"
+                  :value="old('insalubridade') ?? $funcionario->insalubridade ?? null" 
+                  name="insalubridade" label="Insalubridade" class="money"
                 />
-                @error('quinquenio') <div class="text-warning">{{ $message }}</div> @enderror 
-              </div>
-      
-              <div class="col-sm-2">
-                <x-forms.input-field 
-                  :value="old('func_gratificada') ?? $funcionario->func_gratificada ?? null" 
-                  name="func_gratificada" label="Função Gratificada" class="money"
-                />
-                @error('func_gratificada') <div class="text-warning">{{ $message }}</div> @enderror 
-              </div>
+                @error('insalubridade') <div class="text-warning">{{ $message }}</div> @enderror 
+              </div>      
               
               <div class="col-sm-2">
                 <x-forms.input-select name="vale_transporte" label="Vale Transporte">

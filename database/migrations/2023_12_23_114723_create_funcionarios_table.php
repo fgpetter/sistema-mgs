@@ -65,8 +65,7 @@ return new class extends Migration
       $table->date('admissao')->nullable();
       $table->date('demissao')->nullable();
       $table->double('salario', 8, 2)->nullable();
-      $table->double('quinquenio', 8, 2)->nullable();
-      $table->double('func_gratificada', 8, 2)->nullable();
+      $table->double('insalubridade', 8, 2)->nullable();
       $table->double('assiduidade', 8, 2)->nullable();
       $table->foreignIdFor(Obra::class)->nullable();
       $table->boolean('vale_transporte')->nullable();
