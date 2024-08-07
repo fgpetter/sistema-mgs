@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Obra;
 use App\Models\Funcionario;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use App\Models\FuncionarioEpi;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\FuncionarioRequest;
-use App\Models\Obra;
 use Illuminate\Database\Eloquent\Builder;
 
 
@@ -69,6 +70,7 @@ class FuncionarioController extends Controller
    **/
   public function insert(Funcionario $funcionario): View|RedirectResponse
   {
+    $funcionario['funcoes'] = DB::table('funcionarios')->distinct()->get(['funcao']);
     return view('painel.funcionarios.insert', ['funcionario' => $funcionario, 'obras' => Obra::all()]);
   }
 

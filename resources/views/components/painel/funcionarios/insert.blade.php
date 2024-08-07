@@ -444,8 +444,15 @@
                 <x-forms.input-field 
                   :value="old('funcao') ?? $funcionario->funcao ?? null" 
                   name="funcao" label="Função"
+                  list="funcaoList"
                 />
-                @error('funcao') <div class="text-warning">{{ $message }}</div> @enderror 
+                <datalist id="funcaoList">
+                  @foreach ($funcionario->funcoes as $funcao)
+                    <option value="{{ $funcao->funcao }}">
+                  @endforeach
+                </datalist>
+                @error('funcao') <div class="text-warning">{{ $message }}</div> @enderror
+
               </div>
 
               <div class="col-sm-4">

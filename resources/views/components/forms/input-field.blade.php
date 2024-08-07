@@ -9,7 +9,10 @@
   'uppercase' => false,
   'pattern' => null,
   'title' => null,
-  'tooltip' => null
+  'tooltip' => null,
+  'readonly' => false,
+  'list' => null,
+
 ])
 
 @if($label) <label class="form-label">{!!$label!!} @if($required) <span class="text-danger"> * </span> @endif </label> @endif
@@ -27,4 +30,6 @@
   @if ($placeholder) placeholder="{{$placeholder}}" @endif
   @if ($uppercase) oninput="this.value = this.value.toUpperCase()" @endif
   @if ($pattern) pattern='{{$pattern}}' title="{{$title}}" @endif
+  @if ($list) list={{ $list }} @endif
+  @readonly($readonly)
 >
