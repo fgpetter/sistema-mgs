@@ -3,12 +3,13 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EpiController;
+use App\Http\Controllers\ObraController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FolhaController;
 use App\Http\Controllers\ItemFolhaController;
+use App\Http\Controllers\DependenteController;
 use App\Http\Controllers\FuncionarioController;
 use App\Http\Controllers\DadoBancarioController;
-use App\Http\Controllers\DependenteController;
 use App\Http\Controllers\LancamentoPontoController;
 
 Auth::routes();
@@ -78,6 +79,15 @@ Route::prefix('painel')->middleware('auth')->group(function () {
     Route::post('registra-entrega/{controle?}', [EpiController::class, 'registraEntregaEpi'])->name('registra-entrega-epi');
     Route::post('remove-entrega/{controle?}', [EpiController::class, 'removeEntregaEpi'])->name('remove-entrega-epi');
   });
+
+    /* Obras */
+    Route::group(['prefix' => 'obra'], function () {
+      Route::get('index', [ObraController::class, 'index'])->name('obra-index');
+      Route::post('create/{obra?}', [ObraController::class, 'create'])->name('obra-create');
+      Route::post('update/{obra}', [ObraController::class, 'update'])->name('obra-update');
+      Route::post('delete/{obra}', [ObraController::class, 'delete'])->name('obra-delete');
+    });
+  
 
   /* Lancamento Ponto */
   Route::group(['prefix' => 'lancamentoPonto'], function () {

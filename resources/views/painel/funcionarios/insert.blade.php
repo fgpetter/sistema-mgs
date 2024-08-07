@@ -19,7 +19,7 @@
 
   <div class="row">
     <div class="col">
-      <x-painel.funcionarios.insert :funcionario="$funcionario"/>
+      <x-painel.funcionarios.insert :funcionario="$funcionario" :obras="$obras"/>
     </div>
   </div>
 

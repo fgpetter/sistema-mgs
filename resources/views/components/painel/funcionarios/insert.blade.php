@@ -449,10 +449,13 @@
               </div>
 
               <div class="col-sm-4">
-                <x-forms.input-select name="prestador_servico" label="Prestador de Serviços">
-                  <option @selected($funcionario->prestador_servico == 1) value="1">Selecione</option>
+                <x-forms.input-select name="obra_id" label="Obra">
+                  <option @selected($funcionario->obra_id == 1) value="">Selecione</option>
+                  @foreach ($obras as $obra)
+                    <option @selected($funcionario->obra_id == $obra->id) value=""> {{$obra->nome}} </option>
+                  @endforeach
                 </x-forms.input-select>
-                @error('prestador_servico') <div class="text-warning">{{ $message }}</div> @enderror
+                @error('obra_id') <div class="text-warning">{{ $message }}</div> @enderror
               </div>
 
               <div class="col-sm-4">

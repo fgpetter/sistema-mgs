@@ -1,15 +1,15 @@
 @extends('layouts.master')
-@section('title') Editar EPIs @endsection
+@section('title') Editar EPI @endsection
 @section('content')
   @component('components.breadcrumb')
-    @slot('li_1') EPIss @endslot
+    @slot('li_1') EPIs @endslot
     @slot('page') 
-      @if ($epi->id) Editar EPIs
-      @else Cadastrar EPIs @endif 
+      @if ($epi->id) Editar EPI
+      @else Cadastrar EPI @endif 
     @endslot
     @slot('title')
       @if ($epi->id) Editar: {{$epi->nome}}
-      @else Cadastrar EPIs @endif
+      @else Cadastrar EPI @endif
     @endslot
   @endcomponent
 

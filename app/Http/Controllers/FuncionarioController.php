@@ -9,6 +9,7 @@ use App\Models\FuncionarioEpi;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\FuncionarioRequest;
+use App\Models\Obra;
 use Illuminate\Database\Eloquent\Builder;
 
 
@@ -35,6 +36,7 @@ class FuncionarioController extends Controller
         $query->where('nome', 'LIKE', "%$busca_nome%");
       })
       ->get();
+
     return view('painel.funcionarios.index', ['funcionarios' => $funcionarios]);
   }
 
@@ -67,7 +69,7 @@ class FuncionarioController extends Controller
    **/
   public function insert(Funcionario $funcionario): View|RedirectResponse
   {
-    return view('painel.funcionarios.insert', ['funcionario' => $funcionario]);
+    return view('painel.funcionarios.insert', ['funcionario' => $funcionario, 'obras' => Obra::all()]);
   }
 
   /**

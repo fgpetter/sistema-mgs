@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Obra;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -67,7 +68,7 @@ return new class extends Migration
       $table->double('quinquenio', 8, 2)->nullable();
       $table->double('func_gratificada', 8, 2)->nullable();
       $table->double('assiduidade', 8, 2)->nullable();
-      $table->boolean('prestador_servico')->nullable();
+      $table->foreignIdFor(Obra::class)->nullable();
       $table->boolean('vale_transporte')->nullable();
       $table->boolean('contribuicao')->nullable();
       $table->time('hr_entrada')->nullable();
