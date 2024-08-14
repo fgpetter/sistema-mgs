@@ -54,13 +54,13 @@
 
         {{-- Funcionários --}}
         <li class="nav-item">
-          <a class="nav-link menu-link collapsed {{ in_array(request()->route()->getPrefix(),['painel/funcionario', 'painel/beneficio', 'painel/epi', 'painel/lancamentoPonto'])? 'active': '' }}"
+          <a class="nav-link menu-link collapsed {{ in_array(request()->route()->getPrefix(),['painel/funcionario', 'painel/beneficio', 'painel/lancamentoPonto'])? 'active': '' }}"
             href="#sidebarPessoas" data-bs-toggle="collapse" role="button"
-            aria-expanded="{{ in_array(request()->route()->getPrefix(),['painel/funcionario', 'painel/beneficio', 'painel/epi', 'painel/lancamentoPonto'])? 'true': 'false' }}"
+            aria-expanded="{{ in_array(request()->route()->getPrefix(),['painel/funcionario', 'painel/beneficio', 'painel/lancamentoPonto'])? 'true': 'false' }}"
             aria-controls="sidebarPessoas">
             <i class="ph-identification-card"></i> <span>FUNCIONÁRIOS</span>
           </a>
-          <div class="collapse menu-dropdown {{ in_array(request()->route()->getPrefix(),['painel/funcionario', 'painel/beneficio', 'painel/epi', 'painel/lancamentoPonto'])? 'show': '' }}"
+          <div class="collapse menu-dropdown {{ in_array(request()->route()->getPrefix(),['painel/funcionario', 'painel/beneficio', 'painel/lancamentoPonto'])? 'show': '' }}"
             id="sidebarPessoas">
             <ul class="nav nav-sm flex-column">
               <li class="nav-item">
@@ -77,6 +77,45 @@
                 </a>
               </li>
 
+            </ul>
+          </div>
+        </li>
+
+        {{-- Cadastros adicionais --}}
+        <li class="nav-item">
+          <a class="nav-link menu-link collapsed {{ in_array(request()->route()->getPrefix(),['painel/obra'])? 'active': '' }}"
+            href="#sidebarAdicionais" data-bs-toggle="collapse" role="button"
+            aria-expanded="{{ in_array(request()->route()->getPrefix(),['painel/obra'])? 'true': 'false' }}"
+            aria-controls="sidebarAdicionais">
+            <i class="ph-list-plus"></i> <span>CADASTROS ADICIONAIS</span>
+          </a>
+          <div class="collapse menu-dropdown {{ in_array(request()->route()->getPrefix(),['painel/obra'])? 'show': '' }}"
+            id="sidebarAdicionais">
+            <ul class="nav nav-sm flex-column">
+
+              <li class="nav-item">
+                <a href="{{ route('obra-index') }}"
+                  class="nav-link {{ request()->is('painel/obra/index') ? 'active' : '' }}"
+                  role="button" data-key="t-signin">Cadastro de Obras
+                </a>
+              </li>
+
+            </ul>
+          </div>
+        </li>
+
+        {{-- EPIs --}}
+        <li class="nav-item">
+          <a class="nav-link menu-link collapsed {{ in_array(request()->route()->getPrefix(),['painel/epi'])? 'active': '' }}"
+            href="#sidebarEpi" data-bs-toggle="collapse" role="button"
+            aria-expanded="{{ in_array(request()->route()->getPrefix(),['painel/obra'])? 'true': 'false' }}"
+            aria-controls="sidebarEpi">
+            <i class="ph-briefcase"></i> <span>EPIs</span>
+          </a>
+          <div class="collapse menu-dropdown {{ in_array(request()->route()->getPrefix(),['painel/epi'])? 'show': '' }}"
+            id="sidebarEpi">
+            <ul class="nav nav-sm flex-column">
+
               <li class="nav-item">
                 <a href="{{ route('epi-index') }}"
                   class="nav-link {{ request()->is('painel/epi/index') ? 'active' : '' }}"
@@ -91,34 +130,6 @@
                 </a>
               </li>
 
-              <li class="nav-item">
-                <a href="{{ route('obra-index') }}"
-                  class="nav-link {{ request()->is('painel/obra/index') ? 'active' : '' }}"
-                  role="button" data-key="t-signin">Cadastro de Obras
-                </a>
-              </li>
-
-            </ul>
-          </div>
-        </li>
-
-        {{-- Cadastros adicionais --}}
-        <li class="nav-item">
-          <a class="nav-link menu-link collapsed {{ in_array(request()->route()->getPrefix(),['painel/obra'])? 'active': '' }}"
-            href="#sidebarAdicionais" data-bs-toggle="collapse" role="button"
-            aria-expanded="{{ in_array(request()->route()->getPrefix(),['painel/obra'])? 'true': 'false' }}"
-            aria-controls="sidebarAdicionais">
-            <i class="ph-list"></i> <span>CADASTROS ADICIONAIS</span>
-          </a>
-          <div class="collapse menu-dropdown {{ in_array(request()->route()->getPrefix(),['painel/obra'])? 'show': '' }}"
-            id="sidebarAdicionais">
-            <ul class="nav nav-sm flex-column">
-              <li class="nav-item">
-                <a href="{{ route('obra-index') }}"
-                  class="nav-link {{ request()->is('painel/obra/index') ? 'active' : '' }}"
-                  role="button" data-key="t-signin">Cadastro de Obras
-                </a>
-              </li>
             </ul>
           </div>
         </li>
