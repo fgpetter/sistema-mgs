@@ -36,6 +36,7 @@ return new class extends Migration
       $table->string('ctps')->nullable();
       $table->string('ctps_serie')->nullable();
       $table->char('ctps_uf')->nullable();
+      $table->string('e_social')->nullable();
       $table->string('cnh')->nullable();
       $table->date('cnh_val')->nullable();
       $table->date('cnh_registro')->nullable();
@@ -60,14 +61,13 @@ return new class extends Migration
       $table->string('cargo')->nullable();
       $table->string('funcao')->nullable();
       $table->string('escolaridade')->nullable();
-      $table->integer('jornada')->default(0);
       $table->string('local_trabalho')->nullable();
+      $table->foreignIdFor(Obra::class)->nullable();
       $table->date('admissao')->nullable();
       $table->date('demissao')->nullable();
       $table->double('salario', 8, 2)->nullable();
       $table->double('insalubridade', 8, 2)->nullable();
       $table->double('assiduidade', 8, 2)->nullable();
-      $table->foreignIdFor(Obra::class)->nullable();
       $table->boolean('vale_transporte')->nullable();
       $table->boolean('contribuicao')->nullable();
       $table->time('hr_entrada')->nullable();

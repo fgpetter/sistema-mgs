@@ -49,10 +49,11 @@ class FuncionarioController extends Controller
    **/
   public function create(FuncionarioRequest $request): RedirectResponse
   {
-    $validated = $request->except('uid', '_token');
+    $validated = $request->validated();
     
     $validated = Arr::add($validated,'uid', config('hashing.uid'));
 
+    dd($validated);
     $funcionario = Funcionario::create($validated);
 
     if(!$funcionario){
@@ -83,23 +84,8 @@ class FuncionarioController extends Controller
    **/
   public function update(FuncionarioRequest $request, Funcionario $funcionario): RedirectResponse
   {
-    $validated = $request->except('uid', '_token', 'botina', 'calca', 'camiseta');
-    $validated = Arr::map($validated, function ($value, string $key) {
-      if(str_contains($value, ',')){
-        $value = floatval(str_replace(',','.', $value));
-      }
-      return $value;
-    });
-
-    FuncionarioEpi::updateOrCreate(
-      ['funcionario_id' => $funcionario->id], 
-      [
-        'botina' => $request->botina,
-        'calca' => $request->calca,
-        'camiseta' => $request->camiseta,
-      ]);
-
-    $funcionario->update($validated);
+    dd($request->validated());
+    $funcionario->update($request->validated());
 
     return redirect()->back()->with('funcionario-success', 'Funcionario atualizado com sucesso');
   }

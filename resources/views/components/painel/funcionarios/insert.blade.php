@@ -333,6 +333,14 @@
                 />
                 @error('conta_fgts') <div class="text-warning">{{ $message }}</div> @enderror 
               </div>
+
+              <div class="col-sm-3">
+                <x-forms.input-field 
+                  :value="old('e_social') ?? $funcionario->e_social ?? null" 
+                  name="e_social" label="E-Social"
+                />
+                @error('e_social') <div class="text-warning">{{ $message }}</div> @enderror 
+              </div>
       
               <div class="col-sm-3">
                 <x-forms.input-field 
@@ -457,9 +465,9 @@
 
               <div class="col-sm-4">
                 <x-forms.input-select name="obra_id" label="Obra">
-                  <option @selected($funcionario->obra_id == 1) value="">Selecione</option>
+                  <option value="">Selecione</option>
                   @foreach ($obras as $obra)
-                    <option @selected($funcionario->obra_id == $obra->id) value=""> {{$obra->nome}} </option>
+                    <option @selected($funcionario->obra_id == $obra->id) value="{{$obra->id}}"> {{$obra->nome}} </option>
                   @endforeach
                 </x-forms.input-select>
                 @error('obra_id') <div class="text-warning">{{ $message }}</div> @enderror
