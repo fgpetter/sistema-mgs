@@ -163,6 +163,9 @@
                     <option @selected( isset($ponto[$data_banco]) && $ponto[$data_banco]['anotacao'] == 'ABONADO') value="ABONADO">ABONADO</option>
                     <option @selected( isset($ponto[$data_banco]) && $ponto[$data_banco]['anotacao'] == 'FERIAS') value="FERIAS">FERIAS</option>
                     <option @selected( isset($ponto[$data_banco]) && $ponto[$data_banco]['anotacao'] == 'FALTA') value="FALTA">FALTA</option>
+                    <option @selected( isset($ponto[$data_banco]) && $ponto[$data_banco]['anotacao'] == 'ATESTADO') value="ATESTADO">ATESTADO</option>
+                    <option @selected( isset($ponto[$data_banco]) && $ponto[$data_banco]['anotacao'] == 'INSS') value="INSS">INSS</option>
+                    <option @selected( isset($ponto[$data_banco]) && $ponto[$data_banco]['anotacao'] == 'CASA') value="CASA">CASA</option>
                     <option 
                       @selected( (isset($ponto[$data_banco]) && $ponto[$data_banco]['anotacao'] == 'FERIADO') ) 
                       value="FERIADO">
