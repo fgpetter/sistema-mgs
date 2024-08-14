@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    Listagem de funcionarios
+    Listagem de funcionários
 @endsection
 @section('content')
     @component('components.breadcrumb')
@@ -8,7 +8,7 @@
             Pessoas
         @endslot
         @slot('title')
-            Listagem de funcionarios
+            Listagem de funcionários
         @endslot
     @endcomponent
 

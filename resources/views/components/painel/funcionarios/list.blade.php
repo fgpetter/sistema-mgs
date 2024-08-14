@@ -96,7 +96,7 @@
           </tr>
         @empty
           <tr>
-            <td colspan="6" class="text-center" > Não há funcionarios na base. </td>
+            <td colspan="6" class="text-center" > Não há funcionários na base. </td>
           </tr>
         @endforelse
       </tbody>
