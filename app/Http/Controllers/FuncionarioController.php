@@ -53,7 +53,6 @@ class FuncionarioController extends Controller
     
     $validated = Arr::add($validated,'uid', config('hashing.uid'));
 
-    dd($validated);
     $funcionario = Funcionario::create($validated);
 
     if(!$funcionario){
@@ -84,7 +83,6 @@ class FuncionarioController extends Controller
    **/
   public function update(FuncionarioRequest $request, Funcionario $funcionario): RedirectResponse
   {
-    dd($request->validated());
     $funcionario->update($request->validated());
 
     return redirect()->back()->with('funcionario-success', 'Funcionario atualizado com sucesso');
