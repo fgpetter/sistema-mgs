@@ -118,7 +118,7 @@
           <div class="row gy-3">
     
             <div class="col-12">
-              <x-forms.input-select name="funcionario" label="Funcionario">
+              <x-forms.input-select name="funcionario" label="Funcionário">
                 <option>Selecione</option>
                 @foreach ($funcionarios as $funcionario)
                   <option value="{{ $funcionario->id }}">{{ $funcionario->nome }}</option>

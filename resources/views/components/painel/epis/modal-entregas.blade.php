@@ -28,7 +28,7 @@
             </div>
 
             <div class="col-6">
-              <label class="form-label">Funcionario</label>
+              <label class="form-label">Funcionário</label>
               <select name="funcionario_id" id="funcionario_id" class="form-select">
                 @foreach (\App\Models\Funcionario::all() as $funcionario)
                   <option value="{{$funcionario->id}}" >{{$funcionario->nome}}</option>

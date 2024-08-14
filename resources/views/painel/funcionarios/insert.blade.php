@@ -5,11 +5,11 @@
     @slot('li_1') Funcionários @endslot
     @slot('page') 
       @if ($funcionario->id) Editar Funcionário
-      @else Cadastrar Funcionario @endif 
+      @else Cadastrar Funcionário @endif 
     @endslot
     @slot('title')
       @if ($funcionario->id) Editar: {{$funcionario->nome}} {{ !$funcionario->cargo ? '' : '-'.$funcionario->cargo}}
-      @else Cadastrar Funcionario @endif
+      @else Cadastrar Funcionário @endif
     @endslot
   @endcomponent
 
