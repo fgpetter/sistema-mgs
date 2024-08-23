@@ -11,7 +11,7 @@
   @endslot
 @endcomponent
 
-<div class="row mx-4 ">
+<div class="row">
   <div class="col-4">
 
     <div class="card">
@@ -69,16 +69,18 @@
     @php
       if(request()->has('competencia')){
         $ano_mes = explode('-',request()->competencia);
-        $primeiro_dia = Carbon\Carbon::createFromDate($ano_mes[0], $ano_mes[1])->startOfMonth();
-        $dias = $primeiro_dia->diffInDays( Carbon\Carbon::createFromDate($ano_mes[0], $ano_mes[1])->endOfMonth() );
+        $mes = ($ano_mes[1] == 1) ? 12 : $ano_mes[1]-1;
+        $ano = ($mes == 12) ? $ano_mes[0]-1 : $ano_mes[0]; 
+        $primeiro_dia = Carbon\Carbon::createFromDate($ano, $mes)->startOfMonth();
+        $dias = $primeiro_dia->diffInDays( Carbon\Carbon::createFromDate($ano, $mes)->endOfMonth() );
 
-        $ano_atual = Carbon\Carbon::createFromDate($ano_mes[0], $ano_mes[1])->format('Y');
-        $mes_atual = Carbon\Carbon::createFromDate($ano_mes[0], $ano_mes[1])->format('m');
+        $ano_atual = Carbon\Carbon::createFromDate($ano, $mes)->format('Y');
+        $mes_atual = Carbon\Carbon::createFromDate($ano, $mes)->format('m');
       } else {
-        $primeiro_dia = Carbon\Carbon::now()->startOfMonth();
-        $dias = $primeiro_dia->diffInDays( Carbon\Carbon::now()->endOfMonth() );
-        $ano_atual = Carbon\Carbon::now()->format('Y');
-        $mes_atual = Carbon\Carbon::now()->format('m');
+        $primeiro_dia = Carbon\Carbon::now()->subMonth(1)->startOfMonth();
+        $dias = $primeiro_dia->diffInDays( Carbon\Carbon::now()->subMonth(1)->endOfMonth() );
+        $ano_atual = Carbon\Carbon::now()->subMonth(1)->format('Y');
+        $mes_atual = Carbon\Carbon::now()->subMonth(1)->format('m');
       }
     @endphp
     <div class="table-responsive" style="min-height: 25vh">
@@ -90,31 +92,33 @@
             <th scope="col" class="px-3">Saída</th>
             <th scope="col" class="px-3">Entrada</th>
             <th scope="col" class="px-3">Saída</th>
-            <th scope="col" class="px-3" style="width: 1%">HE 50%</th>
-            <th scope="col" class="px-3" style="width: 1%">HE 100%</th>
             <th scope="col" class="px-3" style="width: 1%">Anotação</th>
+            <th scope="col" class="px-3" style="width: 15%">Obra</th>
+            <th scope="col" class="px-3" style="width: 1%; white-space: nowrap">HE 50%</th>
+            <th scope="col" class="px-3" style="width: 1%; white-space: nowrap">HE 100%</th>
           </tr>
         </thead>
         <tbody>
           <form action="{{ route('lancamento-ponto-insert', $funcionario->uid) }}" method="post" id="formPonto">
             @for ($i = 1; $i <= $dias+1; $i++)
               @php
-                $carbonday = Carbon\Carbon::createFromDate($ano_atual, $mes_atual, $i);
+                $carbonday = Carbon\Carbon::create($ano_atual, $mes_atual, $i)->addDays(25);
                 $data = $carbonday->format('d/m/Y');
                 $data_banco = $carbonday->format('Y-m-d');
                 $nome_do_dia = $carbonday->dayName;
                 $dia_da_semana = $carbonday->dayOfWeek;
                 $rand_min = rand(0, 5);
 
-                $entrada_1 = Carbon\Carbon::createFromtime( $hr_padrao[0]  , $hr_padrao[1]+$rand_min)->format('H:i');
-                $saida_1   = Carbon\Carbon::createFromtime( $hr_padrao[0]+4, $hr_padrao[1]+30+$rand_min)->format('H:i');
-                $entrada_2 = Carbon\Carbon::createFromtime( $hr_padrao[0]+5, $hr_padrao[1]+30+$rand_min)->format('H:i');
-                $saida_2   = Carbon\Carbon::createFromtime( $hr_padrao[0]+10, $hr_padrao[1]+$rand_min)->format('H:i');
+                $entrada_1 = Carbon\Carbon::createFromtime( $hr_padrao[0]  , $hr_padrao[1]+$rand_min)->format('H:i'); // 7:30
+                $saida_1   = Carbon\Carbon::createFromtime( $hr_padrao[0]+4, $hr_padrao[1]+30+$rand_min)->format('H:i'); // 12:00
+                $entrada_2 = Carbon\Carbon::createFromtime( $hr_padrao[0]+5, $hr_padrao[1]+30+$rand_min)->format('H:i'); // 13:00
+                $saida_2   = Carbon\Carbon::createFromtime( $hr_padrao[0]+10, $hr_padrao[1]+$rand_min)->format('H:i');  // 17:30
               @endphp
               <tr>
                 @csrf
                 <input type="hidden" name="data[]" value="{{$data_banco}}" >
                 <input type="hidden" name="dia_da_semana[]" value="{{$dia_da_semana}}" >
+                <input type="hidden" name="competencia" value="{{ isset($ano_mes) ? $ano_mes[0].'-'.$ano_mes[1] : Carbon\Carbon::now()->format('Y-m')}}" >
 
                 <td class="px-3 @if($dia_da_semana == 6 || $dia_da_semana == 0) bg-warning bg-opacity-25 @else bg-primary bg-opacity-10 @endif " style="width: 1%">
                   {{$data}} <br> <small> {{ Str::ucfirst($nome_do_dia) }} </small>
@@ -146,15 +150,7 @@
                   class="form-control form-control-sm" 
                   name="saida_2[]" 
                   value="{{ $ponto[$data_banco]['saida_2'] ?? (($dia_da_semana == 6 || $dia_da_semana == 0) ? '' :  $saida_2) }}" >
-                </td>
-
-                <td class="px-3 @if($dia_da_semana == 6 || $dia_da_semana == 0) bg-warning bg-opacity-25 @endif"  >
-                  {{ (isset($ponto[$data_banco]) && $ponto[$data_banco]['qtd_min_50'] > 0) ? date('H:i', mktime(0,$ponto[$data_banco]['qtd_min_50'])) : '-' }}
-                </td>
-
-                <td class="px-3 @if($dia_da_semana == 6 || $dia_da_semana == 0) bg-warning bg-opacity-25 @endif"  >
-                  {{ (isset($ponto[$data_banco]) && $ponto[$data_banco]['qtd_min_100'] > 0) ? date('H:i', mktime(0,$ponto[$data_banco]['qtd_min_100'])) : '-'}}
-                </td>
+                </td>                
 
                 <td class="px-3 @if($dia_da_semana == 6 || $dia_da_semana == 0) bg-warning bg-opacity-25 @endif"  >
                   <select class="form-select form-select-sm" aria-label=".form-select-sm example" style="min-width: 120px" name="anotacao[]">
@@ -174,11 +170,28 @@
                   </select>
                 </td>
 
+                <td class="px-3 @if($dia_da_semana == 6 || $dia_da_semana == 0) bg-warning bg-opacity-25 @endif"  >
+                  <select class="form-select form-select-sm" aria-label=".form-select-sm example" style="min-width: 120px" name="obra[]">
+                    <option></option>
+                    @foreach ($obras as $obra)
+                      <option @selected( isset($ponto[$data_banco]) && $ponto[$data_banco]['obra_id'] == $obra->id) value="{{ $obra->id }}">{{ $obra->nome }}</option>
+                    @endforeach
+                  </select>
+                </td>
+
+                <td class="px-3 @if($dia_da_semana == 6 || $dia_da_semana == 0) bg-warning bg-opacity-25 @endif"  >
+                  {{ (isset($ponto[$data_banco]) && $ponto[$data_banco]['qtd_min_50'] > 0) ? date('H:i', mktime(0,$ponto[$data_banco]['qtd_min_50'])) : '-' }}
+                </td>
+
+                <td class="px-3 @if($dia_da_semana == 6 || $dia_da_semana == 0) bg-warning bg-opacity-25 @endif"  >
+                  {{ (isset($ponto[$data_banco]) && $ponto[$data_banco]['qtd_min_100'] > 0) ? date('H:i', mktime(0,$ponto[$data_banco]['qtd_min_100'])) : '-'}}
+                </td>
+
               </tr>
               
               @if($nome_do_dia == 'domingo') 
                 <tr>
-                  <td colspan="8">
+                  <td colspan="9">
                     @if($ponto['status'] != 'FECHADO')
                     <button class="btn btn-sm btn-success float-end px-3" onclick="getElementById('formPonto').submit()">
                       <span class="fs-5"> SALVAR </span> 

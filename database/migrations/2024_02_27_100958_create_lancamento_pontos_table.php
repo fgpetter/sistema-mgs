@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use App\Models\Obra;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -14,7 +15,7 @@ return new class extends Migration
         Schema::create('lancamento_ponto', function (Blueprint $table) {
             $table->id();
             $table->foreignId('funcionario_id');
-            $table->foreignId('local_trabalho_id');
+            $table->foreignIdFor(Obra::class, 'obra_id')->nullable();
             $table->string('competencia', 7);
             $table->enum('status', ['ABERTO', 'FECHADO'])->default('ABERTO');
             $table->date('data');

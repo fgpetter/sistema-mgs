@@ -3,15 +3,17 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
-use App\Models\Funcionario;
 use Illuminate\Http\Request;
-use App\Models\LancamentoPonto;
-use App\Models\PontoConsolidado;
+use App\Models\{Obra, Funcionario, LancamentoPonto, PontoConsolidado};
 
 class LancamentoPontoController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Exibe formulário de ponto
+     * 
+     * @param Funcionario $funcionario
+     * @param Request $request
+     * @return View
      */
     public function index(Funcionario $funcionario, Request $request)
     {
@@ -22,10 +24,10 @@ class LancamentoPontoController extends Controller
             $ano_mes[1] = Carbon::now()->format('m');
         }
 
+
         $ponto = LancamentoPonto::select()
             ->where('funcionario_id', $funcionario->id)
-            ->whereYear('data', $ano_mes[0])
-            ->whereMonth('data', $ano_mes[1])
+            ->where('competencia', $ano_mes[0].'-'.$ano_mes[1])
             ->orderBy('data')
             ->get();
 
@@ -49,11 +51,21 @@ class LancamentoPontoController extends Controller
             $hr_padrao = [7,30];
         }
 
-        return view('painel.ponto.index', ['ponto' => $lancamentos, 'funcionario' => $funcionario, 'hr_padrao' => $hr_padrao]);
+        $obras = Obra::select('id', 'nome')->get();
+
+        return view('painel.ponto.index', [
+            'ponto' => $lancamentos, 
+            'funcionario' => $funcionario, 
+            'hr_padrao' => $hr_padrao,
+            'obras' => $obras
+        ]);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Salva informações de ponto
+     * 
+     * @param Funcionario $funcionario
+     * @param Request $request
      */
     public function insert(Funcionario $funcionario, Request $request)
     {
@@ -65,19 +77,22 @@ class LancamentoPontoController extends Controller
             $qtd_min_100 = 0;
             $qtd_min_desc = 0;
 
-            if( in_array($data['anotacao'][$key], ['FOLGA','ABONADO','FERIAS', 'FALTA']) ){
+            // zera entrada e saida para dias não trabalhados
+            if( in_array($data['anotacao'][$key], ['FOLGA','ABONADO','FERIAS', 'FALTA', 'FERIADO', 'ATESTADO', 'INSS', 'CASA']) ){
                 $data['entrada_1'][$key] = 0;
                 $data['saida_1'][$key] = 0;
                 $data['entrada_2'][$key] = 0;
                 $data['saida_2'][$key] = 0;
             }
+            
+            // se falta abonada, adiciona minutos trabalhados
+            if( in_array($data['anotacao'][$key], ['FOLGA','ABONADO','CASA','ATESTADO'])){
+                $min_trabalhados = 540;
 
-            if( in_array($data['anotacao'][$key], ['FOLGA','ABONADO','FERIAS'])){
-                $min_trabalhados = 480;
-                
+            // se não abonado define minutos a serem descontados
             } elseif ($data['anotacao'][$key] == 'FALTA') {
                 $min_trabalhados = 0;
-                $qtd_min_desc = 480;
+                $qtd_min_desc = 540;
 
             } else {
                 $entrada_1 = strtotime($data['entrada_1'][$key]);
@@ -89,33 +104,33 @@ class LancamentoPontoController extends Controller
                 $t_tarde = (($saida_2 - $entrada_2) > 0) ? $saida_2 - $entrada_2 : 0;
     
                 $min_trabalhados = ($t_manha + $t_tarde)/60;
-                $min_extras = $min_trabalhados - 480; // 480 = 8H
+                $min_extras = $min_trabalhados - 540; // 540 = 9H
                 
                 if($data['dia_da_semana'][$key] == 0 || $data['anotacao'][$key] == 'FERIADO'){ // feriados e domingos
 
-                    $qtd_min_100 = $min_trabalhados > 0 ? $min_trabalhados : 0;
-                    
+                    $qtd_min_100 = $min_trabalhados > 0 ? $min_trabalhados : 0;                    
+
                 } elseif($data['dia_da_semana'][$key] == 6){ // sabados
 
                     $qtd_min_50 = $min_trabalhados > 0 ? $min_trabalhados : 0;
 
-                } else{ // dias uteis
+                } else { // dias uteis
 
-                    // se o funcionario trabalhou menos de 8h
-                    if($min_trabalhados < 480 ){
-                        $qtd_min_desc = 480 - $min_trabalhados;
+                    // se o funcionario trabalhou menos de 9h
+                    if($min_trabalhados < 540 ){
+                        $qtd_min_desc = 540 - $min_trabalhados;
                     }
 
-                    // se o funcionário trabalhou entre 8 e 10h
+                    // se o funcionário trabalhou entre 9 e 11h
                     // aplica calculo de HE 50%
-                    if($min_trabalhados > 480 && $min_trabalhados <= 600 ){
+                    if($min_trabalhados > 540 && $min_trabalhados <= 660 ){
                         $qtd_min_50 = $min_extras;
                         $qtd_min_100 = 0;
                     }
         
-                    // se o funcionário trabalhou mais de 10h
+                    // se o funcionário trabalhou mais de 11h
                     // aplica calculo de HE 100% descontado 2h em 50%
-                    if($min_trabalhados > 600 ){
+                    if($min_trabalhados > 660 ){
                         $qtd_min_50 = 120;
                         $qtd_min_100 = $min_extras - $qtd_min_50;
                     }
@@ -127,13 +142,13 @@ class LancamentoPontoController extends Controller
             LancamentoPonto::updateOrCreate(
                 ['data' => $date, 'funcionario_id' => $funcionario->id],
                 [
-                    'competencia' => substr($date, 0, 7),
+                    'competencia' => $request->competencia,
                     'entrada_1' => $data['entrada_1'][$key],
                     'saida_1' => $data['saida_1'][$key],
                     'entrada_2' => $data['entrada_2'][$key],
                     'saida_2' => $data['saida_2'][$key],
                     'anotacao' => $data['anotacao'][$key],
-                    'local_trabalho_id' => 0,
+                    'obra_id' => $data['obra'][$key] ?? null,
                     'min_trabalhados' => $min_trabalhados,
                     'qtd_min_50' => $qtd_min_50,
                     'qtd_min_100' => $qtd_min_100,
@@ -151,7 +166,6 @@ class LancamentoPontoController extends Controller
      *
      * @param Funcionario $funcionario
      * @param Request $request
-     * @return void
      */
     public function statusPonto(Funcionario $funcionario, Request $request)
     {
@@ -159,19 +173,39 @@ class LancamentoPontoController extends Controller
 
         if($request->status == 'FECHADO'){
 
+            // recupera lançamentos do ponto na competencia selecionada
             $ponto = LancamentoPonto::select('funcionario_id', 'min_trabalhados', 'qtd_min_50', 'qtd_min_100', 'qtd_min_desc')
                 ->where('funcionario_id', $funcionario->id)
                 ->where('competencia', $competencia)
                 ->get();
+
+            $total_horas_extras = $ponto->sum('qtd_min_50') + $ponto->sum('qtd_min_100');
+
+            // verifica se a quantidade de horas extra supera 28h 
+            // limita pagamento de HE50% para 28h e transbora para HE100%
+            if( $total_horas_extras > 1680) {
+
+                PontoConsolidado::create([
+                    'funcionario_id' => $funcionario->id,
+                    'competencia' => $competencia,
+                    'he_50' => round(1680 / 60, 2),
+                    'he_100' => round( ($total_horas_extras - 1680) / 60, 2),
+                    'faltas' => round($ponto->sum('qtd_min_desc') / 60, 2),
+                    'dias_trabalhados' => $ponto->where('min_trabalhados', '>', 0)->count(),
+                ]);
+
+            } else {
+
+                PontoConsolidado::create([
+                    'funcionario_id' => $funcionario->id,
+                    'competencia' => $competencia,
+                    'he_50' => round($ponto->sum('qtd_min_50') / 60, 2),
+                    'he_100' => round($ponto->sum('qtd_min_100') / 60, 2),
+                    'faltas' => round($ponto->sum('qtd_min_desc') / 60, 2),
+                    'dias_trabalhados' => $ponto->where('min_trabalhados', '>', 0)->count(),
+                ]);
+            }
             
-            PontoConsolidado::create([
-                'funcionario_id' => $funcionario->id,
-                'competencia' => $competencia,
-                'he_50' => round($ponto->sum('qtd_min_50') / 60, 2),
-                'he_100' => round($ponto->sum('qtd_min_100') / 60, 2),
-                'faltas' => round($ponto->sum('qtd_min_desc') / 60, 2),
-                'dias_trabalhados' => $ponto->where('min_trabalhados', '>', 0)->count(),
-            ]);
         }
 
         if($request->status == 'ABERTO'){
@@ -191,7 +225,7 @@ class LancamentoPontoController extends Controller
      * Apresenta relatório de horas ponto
      *
      * @param Request $request
-     * @return void
+     * @return View
      */
     public function relatorio(Request $request)
     {
