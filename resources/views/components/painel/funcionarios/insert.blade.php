@@ -650,7 +650,7 @@
                       <tr>
                         <td>{{$dependente->nome}}</td>
                         <td>{{$dependente->nascimento}}</td>
-                        <td>{{$dependente->conta}}</td>
+                        <td>{{$dependente->parentesco}}</td>
                         <td>
                           <div class="dropdown">
                             <a href="#" role="button" id="dropdownMenuLink1" data-bs-toggle="dropdown" aria-expanded="false">

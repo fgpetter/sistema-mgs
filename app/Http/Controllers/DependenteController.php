@@ -28,6 +28,11 @@ class DependenteController extends Controller
         'num_registro' => ['nullable','string'],
         'livro' => ['nullable','string'],
         'folha' => ['nullable','string'],
+        'nome_pensao' => ['nullable', 'string'],
+        'cpf_pensao' => ['nullable', 'string'],
+        'banco_pensao' => ['nullable', 'string'],
+        'agencia_pensao' => ['nullable', 'string'],
+        'conta_pensao' => ['nullable', 'string'],
     ],[
         'funcionario_id.required' => ['Funcionário inválido'],
         'funcionario_id.exists' => ['Funcionário inválido'],
@@ -40,6 +45,11 @@ class DependenteController extends Controller
         'num_registro.string' => ['Dado informado é inválido'],
         'livro.string' => ['Dado informado é inválido'],
         'folha.string' => ['Dado informado é inválido'],
+        'nome_pensao.string' => ['Dado informado é inválido'],
+        'cpf_pensao.string' => ['Dado informado é inválido'],
+        'banco_pensao.string' => ['Dado informado é inválido'],
+        'agencia_pensao.string' => ['Dado informado é inválido'],
+        'conta_pensao.string' => ['Dado informado é inválido'],
     ]);
 
     $validated['uid'] = config('hashing.uid');
@@ -57,7 +67,7 @@ class DependenteController extends Controller
    * Edita dados de unidade
    *
    * @param Request $request
-   * @param Dependente $unidade
+   * @param Dependente $dependente
    * @return RedirectResponse
    **/
   public function update(Request $request, Dependente $dependente): RedirectResponse
@@ -72,6 +82,11 @@ class DependenteController extends Controller
         'num_registro' => ['nullable','string'],
         'livro' => ['nullable','string'],
         'folha' => ['nullable','string'],
+        'nome_pensao' => ['nullable', 'string'],
+        'cpf_pensao' => ['nullable','string', 'max:14', 'min:14'], // TODO - adicionar validação de CPF/CNPJ
+        'banco_pensao' => ['nullable', 'string'],
+        'agencia_pensao' => ['nullable', 'string'],
+        'conta_pensao' => ['nullable', 'string'],
     ],[
         'nome.string' => ['Dado informado é inválido'],
         'nascimento.date' => ['Dado informado é inválido'],
@@ -82,12 +97,17 @@ class DependenteController extends Controller
         'num_registro.string' => ['Dado informado é inválido'],
         'livro.string' => ['Dado informado é inválido'],
         'folha.string' => ['Dado informado é inválido'],
+        'nome_pensao.string' => ['Dado informado é inválido'],
+        'cpf_pensao.min' => 'CPF inválido',
+        'cpf_pensao.max' => 'CPF inválido',
+        'banco_pensao.string' => ['Dado informado é inválido'],
+        'agencia_pensao.string' => ['Dado informado é inválido'],
+        'conta_pensao.string' => ['Dado informado é inválido'],
     ]);
 
     $dependente->update($validated);
 
     return redirect()->back()->with('funcionario-success', 'Dependente atualizado com sucesso');
-
   }
 
   /**
