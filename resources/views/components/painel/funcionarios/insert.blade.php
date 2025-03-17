@@ -9,46 +9,52 @@
       @csrf
 
       <!-- Nav tabs -->
-      <ul class="nav nav-tabs nav-justified mb-3" role="tablist">
-        <li class="nav-item">
-            <a class="nav-link active" data-bs-toggle="tab" href="#principal" role="tab" aria-selected="true">
-                Dados Principais
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="tab" href="#documentos" role="tab" aria-selected="false">
-                Documentos
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="tab" href="#endereco" role="tab" aria-selected="false">
-                Endereços e contatos
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="tab" href="#financeiro" role="tab" aria-selected="false">
-                Dados Prof. e Financeiro
-            </a>
-        </li>
-        @if ($funcionario->id)
-        <li class="nav-item">
-          <a class="nav-link" data-bs-toggle="tab" href="#dependentes" role="tab" aria-selected="false">
-              Dependentes
-          </a>
-        </li>
-
-        <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="tab" href="#epi" role="tab" aria-selected="false">
-                EPIs
-            </a>
-        </li>
-
-        @endif
-      </ul>
+<ul class="nav nav-tabs nav-justified mb-3" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link {{ (session('activeTab') == 'principal' || !session('activeTab')) ? 'active' : '' }}" 
+           data-bs-toggle="tab" href="#principal" role="tab" aria-selected="true">
+            Dados Principais
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link {{ session('activeTab') == 'documentos' ? 'active' : '' }}" 
+           data-bs-toggle="tab" href="#documentos" role="tab">
+            Documentos
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link {{ session('activeTab') == 'endereco' ? 'active' : '' }}" 
+           data-bs-toggle="tab" href="#endereco" role="tab">
+            Endereços e contatos
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link {{ session('activeTab') == 'financeiro' ? 'active' : '' }}" 
+           data-bs-toggle="tab" href="#financeiro" role="tab">
+            Dados Prof. e Financeiro
+        </a>
+    </li>
+    @if ($funcionario->id)
+    <li class="nav-item">
+        <a class="nav-link {{ session('activeTab') == 'dependentes' ? 'active' : '' }}" 
+           data-bs-toggle="tab" href="#dependentes" role="tab">
+            Dependentes
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link {{ session('activeTab') == 'epi' ? 'active' : '' }}" 
+           data-bs-toggle="tab" href="#epi" role="tab">
+            EPIs
+        </a>
+    </li>
+    @endif
+</ul>
 
       <!-- Tab panes -->
       <div class="tab-content">
-          <div class="tab-pane active" id="principal" role="tabpanel"> <!-- Dados principais -->
+          <div class="tab-pane {{ (session('activeTab') == 'principal' || !session('activeTab')) ? 'active show' : '' }}" 
+         id="principal" role="tabpanel">
+            <!-- Dados principais -->
 
             <div class="row gy-3">
               <div class="col-sm-6">
@@ -183,7 +189,8 @@
             </div>
           </div>
 
-          <div class="tab-pane" id="documentos" role="tabpanel"> <!-- Documentos -->
+          <div class="tab-pane {{ session('activeTab') == 'documentos' ? 'active show' : '' }}" 
+         id="documentos" role="tabpanel"> <!-- Documentos -->
 
             <div class="row gy-3">
               <div class="col-sm-3">
@@ -359,7 +366,8 @@
             </div>
           </div>
 
-          <div class="tab-pane" id="endereco" role="tabpanel"> <!-- Endereços e contatos -->
+           <div class="tab-pane {{ session('activeTab') == 'endereco' ? 'active show' : '' }}" 
+         id="endereco" role="tabpanel"><!-- Endereços e contatos -->
             <div class="row gy-3">
               <div class="col-sm-4">
                 <x-forms.input-field 
@@ -437,7 +445,8 @@
             </div>
           </div>
 
-          <div class="tab-pane" id="financeiro" role="tabpanel"> <!-- Dados Prof. e Financeiro -->
+          <div class="tab-pane {{ session('activeTab') == 'financeiro' ? 'active show' : '' }}" 
+         id="financeiro" role="tabpanel"> <!-- Dados Prof. e Financeiro -->
             <div class="row gy-3">
 
               <div class="col-sm-4">
@@ -630,7 +639,8 @@
           @if ($funcionario->id)
 
 
-            <div class="tab-pane" id="dependentes" role="tabpanel"> <!-- Dependentes -->
+            <div class="tab-pane {{ session('activeTab') == 'dependentes' ? 'active show' : '' }}" 
+         id="dependentes" role="tabpanel"> <!-- Dependentes -->
               
               <a class="btn btn-sm btn-primary my-3" data-bs-toggle="modal" data-bs-target="#modal_dependente_cadastro">Cadastrar dependente</a>
 
@@ -649,7 +659,7 @@
                     @forelse ($funcionario->dependentes as $dependente)
                       <tr>
                         <td>{{$dependente->nome}}</td>
-                        <td>{{$dependente->nascimento}}</td>
+                        <td>{{ \Carbon\Carbon::parse($dependente->nascimento)->format('d-m-Y') }}</td>
                         <td>{{$dependente->parentesco}}</td>
                         <td>
                           <div class="dropdown">
@@ -679,7 +689,8 @@
               </div>
             </div>            
             
-            <div class="tab-pane" id="epi" role="tabpanel"> <!-- EPIs -->
+            <div class="tab-pane {{ session('activeTab') == 'epi' ? 'active show' : '' }}" 
+         id="epi" role="tabpanel"> <!-- EPIs -->
               <div class="row gy-3">
 
                 <div class="col-sm-3">
