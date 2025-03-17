@@ -81,6 +81,7 @@ class FuncionarioRequest extends FormRequest
       'hr_entrada' => ['nullable'],
       'situacao' => ['nullable'],
       'observacoes' => ['nullable'],
+      'matricula' => ['nullable'],
     ];
   }
 
