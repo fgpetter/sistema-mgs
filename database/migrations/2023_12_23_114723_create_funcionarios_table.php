@@ -73,6 +73,7 @@ return new class extends Migration
       $table->time('hr_entrada')->nullable();
       $table->string('situacao')->default('ativo');
       $table->text('observacoes')->nullable();
+      $table->string('matricula')->nullable();
       $table->timestamps();
     });
   }

@@ -12,7 +12,7 @@
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
     <!-- App favicon -->
-    <link rel="shortcut icon" href="{{ URL::asset('build/images/favicon.png') }}">
+    <link rel="shortcut icon" href="{{ URL::asset('build/images/favicon-mgs.png') }}">
 
     {{-- font wansome --}}
     <script src="https://kit.fontawesome.com/02f4ca9b8a.js" crossorigin="anonymous"></script>

@@ -24,6 +24,11 @@ return new class extends Migration
             $table->string('num_registro');
             $table->string('livro');
             $table->string('folha');
+            $table->string('nome_pensao')->nullable();
+            $table->string('cpf_pensao')->nullable();
+            $table->string('banco_pensao')->nullable();
+            $table->string('agencia_pensao')->nullable();
+            $table->string('conta_pensao')->nullable();
             $table->timestamps();
         });
     }
