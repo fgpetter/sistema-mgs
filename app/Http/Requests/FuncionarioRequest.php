@@ -51,7 +51,7 @@ class FuncionarioRequest extends FormRequest
       'cnh_categ' => ['nullable'],
       'titulo_eleitor' => ['nullable'],
       'titulo_eleitor_zona' => ['nullable'],
-      'titulo_eleitor_cessao' => ['nullable'],
+      'titulo_eleitor_cecao' => ['nullable'],
       'pis' => ['nullable'],
       'data_opcao_fgts' => ['nullable'],
       'conta_fgts' => ['nullable'],

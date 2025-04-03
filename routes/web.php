@@ -44,6 +44,7 @@ Route::prefix('painel')->middleware('auth')->group(function () {
     Route::post('update/{funcionario:uid}', [FuncionarioController::class, 'update'])->name('funcionario-update');
     Route::post('delete/{funcionario:uid}', [FuncionarioController::class, 'delete'])->name('funcionario-delete');
     Route::post('delete-curriculo/{funcionario:uid}', [FuncionarioController::class, 'curriculoDelete'])->name('curriculo-delete');
+    Route::get('generate-doc-adimissao/{funcionario:uid}', [FuncionarioController::class, 'generateDocAdimissao'])->name('funcionario-generate-doc-adimissao');
   });
 
   /* Dados bancários */

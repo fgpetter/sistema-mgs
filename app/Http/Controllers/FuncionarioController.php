@@ -12,6 +12,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\FuncionarioRequest;
 use Illuminate\Database\Eloquent\Builder;
+use App\Actions\GenerateDocAdimissaoAction;
 
 
 class FuncionarioController extends Controller
@@ -98,6 +99,14 @@ class FuncionarioController extends Controller
     {
       $funcionario->delete();
       return redirect()->route('funcionario-index')->with('funcionario-success', 'Funcionario removido');
+    }
+
+    public function generateDocAdimissao(Funcionario $funcionario)
+    {
+      $generateDocAdimissaoAction = new GenerateDocAdimissaoAction();
+      $filename = $generateDocAdimissaoAction->execute($funcionario);
+
+      return response()->download(storage_path('app/public/docs/' . $filename));
     }
 
 }

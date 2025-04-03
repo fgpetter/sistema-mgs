@@ -34,6 +34,7 @@ return new class extends Migration
       $table->date('emissao_rg')->nullable();
       $table->string('emissor_rg')->nullable();
       $table->string('ctps')->nullable();
+      $table->date('ctps_emissao')->nullable();
       $table->string('ctps_serie')->nullable();
       $table->char('ctps_uf')->nullable();
       $table->string('e_social')->nullable();
@@ -42,8 +43,9 @@ return new class extends Migration
       $table->date('cnh_registro')->nullable();
       $table->char('cnh_categ', 2)->nullable();
       $table->string('titulo_eleitor')->nullable();
+      $table->string('titulo_eleitor_cidade')->nullable();
       $table->string('titulo_eleitor_zona')->nullable();
-      $table->string('titulo_eleitor_cessao')->nullable();
+      $table->string('titulo_eleitor_cecao')->nullable();
       $table->string('pis')->nullable();
       $table->date('data_opcao_fgts')->nullable();
       $table->string('conta_fgts')->nullable();
