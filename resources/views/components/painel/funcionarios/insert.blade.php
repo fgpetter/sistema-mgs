@@ -269,9 +269,9 @@
             </div>
 
             <div class="col-sm-4">
-              <x-forms.input-field :value="old('titulo_eleitor_cecao') ?? ($funcionario->titulo_eleitor_cecao ?? null)" type="number" name="titulo_eleitor_cecao"
-                label="Sessão Eleitoral" />
-              @error('titulo_eleitor_cecao')<div class="text-warning">{{ $message }}</div>@enderror
+              <x-forms.input-field :value="old('titulo_eleitor_secao') ?? ($funcionario->titulo_eleitor_secao ?? null)" type="number" name="titulo_eleitor_secao"
+                label="Seção Eleitoral" />
+              @error('titulo_eleitor_secao')<div class="text-warning">{{ $message }}</div>@enderror
             </div>
 
             <!-- Linha 5: Número do PIS, E-Social, Data de opção do FGTS, Conta FGTS -->

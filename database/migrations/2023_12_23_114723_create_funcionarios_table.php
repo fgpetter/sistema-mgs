@@ -45,7 +45,7 @@ return new class extends Migration
       $table->string('titulo_eleitor')->nullable();
       $table->string('titulo_eleitor_cidade')->nullable();
       $table->string('titulo_eleitor_zona')->nullable();
-      $table->string('titulo_eleitor_cecao')->nullable();
+      $table->string('titulo_eleitor_secao')->nullable();
       $table->string('pis')->nullable();
       $table->date('data_opcao_fgts')->nullable();
       $table->string('conta_fgts')->nullable();
