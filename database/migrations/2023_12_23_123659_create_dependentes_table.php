@@ -20,10 +20,10 @@ return new class extends Migration
             $table->string('parentesco');
             $table->enum('sexo', ['MASCULINO', 'FEMININO', 'OUTRO']);
             $table->enum('est_civil', ['SOLTEIRO', 'CASADO', 'DIVORCIADO', 'SEPARADO', 'VIUVO']);
-            $table->string('cartorio');
-            $table->string('num_registro');
-            $table->string('livro');
-            $table->string('folha');
+            $table->string('cartorio')->nullable();
+            $table->string('num_registro')->nullable();
+            $table->string('livro')->nullable();
+            $table->string('folha')->nullable();
             $table->string('nome_pensao')->nullable();
             $table->string('cpf_pensao')->nullable();
             $table->string('banco_pensao')->nullable();
