@@ -23,58 +23,58 @@
 
           <div class="row gy-3">
             <div class="col-lg-6">
-              <label class="form-label">Nome</label>
-              <input type="text" class="form-control" name="nome" value="{{old('nome') ?? $dependente->nome ?? ''}}">
+              <x-forms.input-field :value="old('nome') ?? ($dependente->nome ?? null)" name="nome" label="Nome" :required="true" />
+              @error('nome')<div class="text-warning">{{ $message }}</div>@enderror
             </div>
 
             <div class="col-lg-2">
-              <label class="form-label">Nascimento</label>
-              <input type="date" class="form-control" name="nascimento" value="{{old('nascimento') ?? $dependente->nascimento ?? ''}}">
+              <x-forms.input-field type="date" :value="old('nascimento') ?? ($dependente->nascimento ?? null)" name="nascimento" label="Nascimento" :required="true" />
+              @error('nascimento')<div class="text-warning">{{ $message }}</div>@enderror
             </div>
 
             <div class="col-md-4">
-              <label class="form-label">Parentesco</label>
-              <input type="text" class="form-control" name="parentesco" value="{{old('parentesco') ?? $dependente->parentesco ?? ''}}">
+              <x-forms.input-field :value="old('parentesco') ?? ($dependente->parentesco ?? null)" name="parentesco" label="Parentesco" :required="true" />
+              @error('parentesco')<div class="text-warning">{{ $message }}</div>@enderror
             </div>
 
             <div class="col-md-4">
-              <label class="form-label">Sexo</label>
-              <select class="form-select" name="sexo">
+              <x-forms.input-select name="sexo" label="Sexo" :required="true" >
                 <option value="MASCULINO" @selected($dependente?->sexo == 'MASCULINO')>Masculino</option>
                 <option value="FEMININO" @selected($dependente?->sexo == 'FEMININO')>Feminino</option>
                 <option value="OUTRO" @selected($dependente?->sexo == 'OUTRO')>Outro</option>
-              </select>
+              </x-forms.input-select>
+              @error('sexo')<div class="text-warning">{{ $message }}</div>@enderror
             </div>
 
             <div class="col-md-4">
-              <label class="form-label">Estado Civil</label>
-              <select class="form-select" name="est_civil">
+              <x-forms.input-select name="est_civil" label="Estado Civil" :required="true" >
                 <option value="SOLTEIRO" @selected($dependente?->est_civil == 'SOLTEIRO')>Solteiro</option>
                 <option value="CASADO" @selected($dependente?->est_civil == 'CASADO')>Casado</option>
                 <option value="DIVORCIADO" @selected($dependente?->est_civil == 'DIVORCIADO')>Divorciado</option>
                 <option value="SEPARADO" @selected($dependente?->est_civil == 'SEPARADO')>Separado</option>
                 <option value="VIUVO" @selected($dependente?->est_civil == 'VIUVO')>Viúvo</option>
-              </select>
+              </x-forms.input-select>
+              @error('est_civil')<div class="text-warning">{{ $message }}</div>@enderror
             </div>
 
             <div class="col-md-4">
-              <label class="form-label">Cartório</label>
-              <input type="text" class="form-control" name="cartorio" value="{{old('cartorio') ?? $dependente->cartorio ?? ''}}">
+              <x-forms.input-field :value="old('cartorio') ?? ($dependente->cartorio ?? null)" name="cartorio" label="Cartório" />
+              @error('cartorio')<div class="text-warning">{{ $message }}</div>@enderror
             </div>
 
             <div class="col-md-4">
-              <label class="form-label">Nº de Registro</label>
-              <input type="text" class="form-control" name="num_registro" value="{{old('num_registro') ?? $dependente->num_registro ?? ''}}">
+              <x-forms.input-field :value="old('num_registro') ?? ($dependente->num_registro ?? null)" name="num_registro" label="Nº de Registro" />
+              @error('num_registro')<div class="text-warning">{{ $message }}</div>@enderror
             </div>
 
             <div class="col-md-4">
-              <label class="form-label">Livro</label>
-              <input type="text" class="form-control" name="livro" value="{{old('livro') ?? $dependente->livro ?? ''}}">
+              <x-forms.input-field :value="old('livro') ?? ($dependente->livro ?? null)" name="livro" label="Livro" />
+              @error('livro')<div class="text-warning">{{ $message }}</div>@enderror
             </div>
 
             <div class="col-md-4">
-              <label class="form-label">Folha</label>
-              <input type="text" class="form-control" name="folha" value="{{old('folha') ?? $dependente->folha ?? ''}}">
+              <x-forms.input-field :value="old('folha') ?? ($dependente->folha ?? null)" name="folha" label="Folha" />
+              @error('folha')<div class="text-warning">{{ $message }}</div>@enderror
             </div>
 
             <div class="col-12">
@@ -86,28 +86,28 @@
             </div>
 
             <div class="col-md-8">
-              <label class="form-label">Nome</label>
-              <input type="text" class="form-control" name="nome_pensao" value="{{old('nome_pensao') ?? $dependente->nome_pensao ?? ''}}">
+              <x-forms.input-field :value="old('nome_pensao') ?? ($dependente->nome_pensao ?? null)" name="nome_pensao" label="Nome" />
+              @error('nome_pensao')<div class="text-warning">{{ $message }}</div>@enderror
             </div>
 
             <div class="col-md-4">
-              <label class="form-label">CPF</label>
-              <input type="text" class="form-control cpf-mask" name="cpf_pensao" value="{{old('cpf_pensao') ?? $dependente->cpf_pensao ?? ''}}">
+              <x-forms.input-field :value="old('cpf_pensao') ?? ($dependente->cpf_pensao ?? null)" name="cpf_pensao" label="CPF" class="cpf-mask" />
+              @error('cpf_pensao')<div class="text-warning">{{ $message }}</div>@enderror
             </div>
 
             <div class="col-md-4">
-              <label class="form-label">Banco</label>
-              <input type="text" class="form-control" name="banco_pensao" value="{{old('banco_pensao') ?? $dependente->banco_pensao ?? ''}}">
+              <x-forms.input-field :value="old('banco_pensao') ?? ($dependente->banco_pensao ?? null)" name="banco_pensao" label="Banco" />
+              @error('banco_pensao')<div class="text-warning">{{ $message }}</div>@enderror
             </div>
 
             <div class="col-md-4">
-              <label class="form-label">Agência</label>
-              <input type="text" class="form-control" name="agencia_pensao" value="{{old('agencia_pensao') ?? $dependente->agencia_pensao ?? ''}}">
+              <x-forms.input-field :value="old('agencia_pensao') ?? ($dependente->agencia_pensao ?? null)" name="agencia_pensao" label="Agência" />
+              @error('agencia_pensao')<div class="text-warning">{{ $message }}</div>@enderror
             </div>
 
             <div class="col-md-4">
-              <label class="form-label">Conta</label>
-              <input type="text" class="form-control" name="conta_pensao" value="{{old('conta_pensao') ?? $dependente->conta_pensao ?? ''}}">
+              <x-forms.input-field :value="old('conta_pensao') ?? ($dependente->conta_pensao ?? null)" name="conta_pensao" label="Conta" />
+              @error('conta_pensao')<div class="text-warning">{{ $message }}</div>@enderror
             </div>
 
             <div class="col-12">
